@@ -1,0 +1,642 @@
+
+/* =====================================================
+   ALAS DEL EMPRENDIMIENTO
+   CATÁLOGO DE PRODUCTOS - NEÓN PREMIUM
+   Turquesa | Violeta | Fondo oscuro
+===================================================== */
+
+/* COLORES DEL DISEÑO */
+:root {
+    --neon-turquesa: #00f5ff;
+    --neon-violeta: #b026ff;
+    --neon-rosa: #ff2bd6;
+    --neon-verde: #39ff88;
+
+    --fondo-tarjeta: #101020;
+    --fondo-secundario: #19152d;
+    --texto-principal: #f5f3ff;
+    --texto-secundario: #b8b5d1;
+
+    --borde-neon: rgba(0, 245, 255, 0.3);
+    --sombra-neon:
+        0 0 10px rgba(0, 245, 255, 0.12),
+        0 0 24px rgba(176, 38, 255, 0.08);
+}
+
+/* =====================================================
+   CATÁLOGO
+===================================================== */
+
+#listaProductos {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(min(100%, 210px), 240px)
+    );
+
+    justify-content: start;
+    align-items: stretch;
+    gap: 22px;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* =====================================================
+   TARJETAS DE PRODUCTOS
+===================================================== */
+
+#listaProductos .producto-tarjeta {
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 240px;
+    min-width: 0;
+    height: 100%;
+
+    overflow: hidden;
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(31, 25, 57, 0.98),
+            rgba(12, 13, 29, 0.99) 70%
+        );
+
+    border: 1px solid rgba(176, 38, 255, 0.35);
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 12px rgba(176, 38, 255, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Borde luminoso superior */
+#listaProductos .producto-tarjeta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 2px;
+    z-index: 2;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--neon-turquesa),
+        var(--neon-violeta),
+        transparent
+    );
+
+    box-shadow: 0 0 12px rgba(0, 245, 255, 0.7);
+    pointer-events: none;
+}
+
+/* Brillo al pasar el cursor */
+#listaProductos .producto-tarjeta:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--neon-turquesa);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.35),
+        0 0 10px rgba(0, 245, 255, 0.3),
+        0 0 26px rgba(176, 38, 255, 0.16);
+}
+
+/* =====================================================
+   IMAGEN DEL PRODUCTO
+===================================================== */
+
+#listaProductos .producto-imagen {
+    display: block;
+
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+    flex-shrink: 0;
+
+    background: #15152a;
+    border-radius: 0;
+
+    transition: transform 0.35s ease;
+}
+
+#listaProductos .producto-tarjeta:hover .producto-imagen {
+    transform: scale(1.025);
+}
+
+/* Producto sin imagen */
+#listaProductos .producto-sin-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--neon-turquesa);
+    font-size: 2.8rem;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(176, 38, 255, 0.2),
+            #101020 72%
+        );
+
+    text-shadow:
+        0 0 10px rgba(0, 245, 255, 0.65),
+        0 0 22px rgba(176, 38, 255, 0.45);
+}
+
+/* =====================================================
+   INFORMACIÓN DEL PRODUCTO
+===================================================== */
+
+#listaProductos .producto-informacion {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+
+    min-width: 0;
+    padding: 14px;
+
+    box-sizing: border-box;
+}
+
+/* Nombre */
+#listaProductos .producto-informacion h3 {
+    color: var(--texto-principal);
+
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.45;
+
+    margin: 0;
+    overflow-wrap: anywhere;
+
+    transition: color 0.2s ease;
+}
+
+#listaProductos .producto-tarjeta:hover
+.producto-informacion h3 {
+    color: var(--neon-turquesa);
+}
+
+/* Precio neón */
+#listaProductos .producto-precio {
+    color: var(--neon-turquesa);
+
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.3;
+
+    margin: 3px 0;
+
+    overflow-wrap: anywhere;
+
+    text-shadow:
+        0 0 7px rgba(0, 245, 255, 0.35),
+        0 0 16px rgba(0, 245, 255, 0.12);
+}
+
+/* Nombre de la tienda */
+#listaProductos .producto-tienda {
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.5;
+
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Categoría */
+#listaProductos .producto-categoria {
+    align-self: flex-start;
+    max-width: 100%;
+
+    padding: 5px 10px;
+
+    color: #e2b8ff;
+    background: rgba(176, 38, 255, 0.12);
+
+    border: 1px solid rgba(176, 38, 255, 0.42);
+    border-radius: 20px;
+
+    font-size: 0.72rem;
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+
+    box-shadow:
+        inset 0 0 8px rgba(176, 38, 255, 0.06);
+}
+
+/* Disponibilidad */
+#listaProductos .producto-stock {
+    color: var(--neon-verde);
+
+    font-size: 0.78rem;
+    font-weight: 800;
+
+    margin: 0 0 4px;
+
+    text-shadow:
+        0 0 8px rgba(57, 255, 136, 0.2);
+}
+
+/* =====================================================
+   BOTÓN FAVORITOS
+===================================================== */
+
+#listaProductos .btn-favorito-producto {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    color: #ffffff;
+    background: rgba(13, 13, 32, 0.85);
+
+    border: 1px solid rgba(255, 43, 214, 0.55);
+    border-radius: 50%;
+
+    font-size: 1.6rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+#listaProductos .btn-favorito-producto:hover {
+    color: var(--neon-rosa);
+
+    background: rgba(255, 43, 214, 0.12);
+
+    box-shadow:
+        0 0 10px rgba(255, 43, 214, 0.35);
+
+    transform: scale(1.08);
+}
+
+#listaProductos .btn-favorito-producto.es-favorito {
+    color: var(--neon-rosa);
+
+    text-shadow:
+        0 0 8px rgba(255, 43, 214, 0.75);
+}
+
+/* =====================================================
+   BOTÓN WHATSAPP
+===================================================== */
+
+#listaProductos .btn-whatsapp-producto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    margin-top: auto;
+    padding: 11px 9px;
+
+    color: #baffd4;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(18, 140, 74, 0.22),
+            rgba(10, 35, 35, 0.65)
+        );
+
+    border: 1px solid rgba(37, 211, 102, 0.7);
+    border-radius: 10px;
+
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+
+    overflow-wrap: anywhere;
+
+    box-shadow:
+        inset 0 0 10px rgba(37, 211, 102, 0.04),
+        0 0 9px rgba(37, 211, 102, 0.08);
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+#listaProductos .btn-whatsapp-producto:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087c43,
+            #075e36
+        );
+
+    border-color: #39ff88;
+
+    box-shadow:
+        0 0 8px rgba(57, 255, 136, 0.4),
+        0 0 20px rgba(37, 211, 102, 0.2);
+
+    transform: translateY(-2px);
+}
+
+#listaProductos .btn-whatsapp-producto:focus-visible {
+    outline: 2px solid var(--neon-verde);
+    outline-offset: 3px;
+}
+
+/* WhatsApp no configurado */
+#listaProductos .btn-whatsapp-producto[aria-disabled="true"] {
+    color: #aaa7bf;
+
+    background: rgba(70, 70, 90, 0.15);
+    border-color: rgba(150, 150, 175, 0.35);
+
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =====================================================
+   BOTÓN VER PRODUCTO
+===================================================== */
+
+#listaProductos .producto-informacion .btn-principal {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    margin-top: 0;
+    padding: 11px 9px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            110deg,
+            #6326a6,
+            #852cff 55%,
+            #5125a8
+        );
+
+    border: 1px solid rgba(190, 130, 255, 0.65);
+    border-radius: 10px;
+
+    font-size: 0.85rem;
+    font-weight: 900;
+    line-height: 1.4;
+    text-align: center;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 0 10px rgba(255, 255, 255, 0.04),
+        0 0 10px rgba(176, 38, 255, 0.15);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#listaProductos .producto-informacion
+.btn-principal:hover {
+    background:
+        linear-gradient(
+            110deg,
+            #782de0,
+            #a43cff 55%,
+            #652bd0
+        );
+
+    border-color: #d8a8ff;
+
+    box-shadow:
+        0 0 9px rgba(176, 38, 255, 0.5),
+        0 0 20px rgba(176, 38, 255, 0.22);
+
+    transform: translateY(-2px);
+}
+
+#listaProductos .producto-informacion
+.btn-principal:focus-visible {
+    outline: 2px solid var(--neon-violeta);
+    outline-offset: 3px;
+}
+
+/* =====================================================
+   TABLETS Y PANTALLAS MEDIANAS
+===================================================== */
+
+@media (max-width: 800px) {
+    #listaProductos {
+        grid-template-columns: repeat(
+            auto-fill,
+            minmax(min(100%, 180px), 1fr)
+        );
+
+        gap: 16px;
+    }
+
+    #listaProductos .producto-tarjeta {
+        max-width: none;
+    }
+
+    #listaProductos .producto-informacion {
+        padding: 12px;
+    }
+}
+
+/* =====================================================
+   CELULARES
+===================================================== */
+
+@media (max-width: 480px) {
+    #listaProductos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+    }
+
+    #listaProductos .producto-tarjeta {
+        max-width: none;
+        border-radius: 14px;
+    }
+
+    #listaProductos .producto-informacion {
+        padding: 9px;
+        gap: 8px;
+    }
+
+    #listaProductos .producto-informacion h3 {
+        font-size: 0.84rem;
+    }
+
+    #listaProductos .producto-precio {
+        font-size: 1.02rem;
+    }
+
+    #listaProductos .producto-tienda {
+        font-size: 0.72rem;
+    }
+
+    #listaProductos .producto-categoria {
+        padding: 4px 7px;
+        font-size: 0.66rem;
+    }
+
+    #listaProductos .producto-stock {
+        font-size: 0.7rem;
+    }
+
+    #listaProductos .btn-favorito-producto {
+        top: 7px;
+        right: 7px;
+
+        width: 34px;
+        height: 34px;
+
+        font-size: 1.35rem;
+    }
+
+    #listaProductos .btn-whatsapp-producto {
+        padding: 9px 4px;
+        font-size: 0.7rem;
+    }
+
+    #listaProductos .producto-informacion .btn-principal {
+        padding: 9px 5px;
+        font-size: 0.74rem;
+    }
+}
+
+/* =====================================================
+   CELULARES MUY ESTRECHOS
+===================================================== */
+
+@media (max-width: 320px) {
+    #listaProductos {
+        grid-template-columns: minmax(0, 1fr);
+        justify-content: center;
+    }
+
+    #listaProductos .producto-tarjeta {
+        width: 100%;
+        max-width: 260px;
+        justify-self: center;
+    }
+
+    #listaProductos .producto-informacion {
+        padding: 13px;
+    }
+
+    #listaProductos .producto-informacion h3 {
+        font-size: 0.95rem;
+    }
+
+    #listaProductos .producto-precio {
+        font-size: 1.2rem;
+    }
+
+    #listaProductos .btn-whatsapp-producto {
+        font-size: 0.82rem;
+    }
+}
+
+/* =====================================================
+   ACCESIBILIDAD: REDUCIR MOVIMIENTO
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    #listaProductos .producto-tarjeta,
+    #listaProductos .producto-imagen,
+    #listaProductos .btn-favorito-producto,
+    #listaProductos .btn-whatsapp-producto,
+    #listaProductos .producto-informacion .btn-principal {
+        transition: none;
+    }
+
+    #listaProductos .producto-tarjeta:hover,
+    #listaProductos .producto-tarjeta:hover .producto-imagen,
+    #listaProductos .btn-favorito-producto:hover,
+    #listaProductos .btn-whatsapp-producto:hover,
+    #listaProductos .producto-informacion .btn-principal:hover {
+        transform: none;
+    }
+}
+
+/* CORREGIR CLIC DEL BOTÓN DE WHATSAPP */
+.btn-whatsapp {
+    position: relative;
+    z-index: 20;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Evitar que los efectos de las tarjetas bloqueen el botón */
+.producto-card,
+.producto-card * {
+    pointer-events: auto;
+}
+
+.producto-card::before,
+.producto-card::after {
+    pointer-events: none;
+}

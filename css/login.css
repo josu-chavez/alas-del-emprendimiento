@@ -1,0 +1,173 @@
+
+/* =========================================
+   ALAS DEL EMPRENDIMIENTO
+   Inicio de sesión - Marketplace moderno
+   ========================================= */
+
+.login-moderno {
+    width: 100%;
+    max-width: 470px;
+    padding: 36px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 0,
+            rgba(176, 38, 255, 0.18),
+            transparent 45%
+        ),
+        linear-gradient(145deg, #191932, #101020);
+    border: 1px solid rgba(176, 38, 255, 0.55);
+    border-radius: 26px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        0 0 30px rgba(176, 38, 255, 0.12);
+}
+
+.login-encabezado {
+    text-align: center;
+}
+
+.login-icono {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #9228F5, #B026FF);
+    box-shadow: 0 8px 28px rgba(176, 38, 255, 0.28);
+    font-size: 2rem;
+}
+
+.login-encabezado .etiqueta {
+    margin-bottom: 12px;
+    font-size: 0.72rem;
+}
+
+.login-encabezado h2 {
+    margin: 10px 0;
+    font-size: clamp(1.7rem, 5vw, 2.15rem);
+    line-height: 1.2;
+}
+
+.login-encabezado > p {
+    margin: 0 0 28px;
+    color: var(--texto-suave);
+    font-size: 0.93rem;
+}
+
+.formulario-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formulario-login label {
+    margin-top: 8px;
+    color: var(--texto);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.login-campo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    padding: 0 14px;
+    background: rgba(11, 11, 22, 0.8);
+    border: 1px solid rgba(176, 38, 255, 0.3);
+    border-radius: 13px;
+    transition:
+        border-color var(--transicion),
+        box-shadow var(--transicion),
+        background var(--transicion);
+}
+
+.login-campo > span {
+    flex-shrink: 0;
+    color: var(--cian);
+    font-size: 1.05rem;
+}
+
+.login-campo:focus-within {
+    background: #0B0B16;
+    border-color: var(--cian);
+    box-shadow: var(--sombra-cian);
+}
+
+.login-campo input {
+    width: 100%;
+    min-width: 0;
+    padding: 15px 0;
+    color: var(--texto);
+    background: transparent;
+    border: none;
+    outline: none;
+    font: inherit;
+}
+
+.login-campo input::placeholder {
+    color: #8986A5;
+}
+
+.login-campo input:focus-visible {
+    outline: none;
+}
+
+.login-boton {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 15px;
+    border-radius: 13px;
+    background: linear-gradient(110deg, #7928CA, #B026FF 55%, #7C3AED);
+    box-shadow: 0 8px 24px rgba(176, 38, 255, 0.22);
+    font-size: 0.98rem;
+}
+
+.login-boton:hover {
+    box-shadow: 0 10px 30px rgba(176, 38, 255, 0.38);
+}
+
+.login-boton:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+.login-mensaje {
+    min-height: 20px;
+    margin: 5px 0 0;
+    color: var(--texto-suave);
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+}
+
+.login-pie {
+    margin-top: 15px;
+    padding-top: 17px;
+    border-top: 1px solid rgba(176, 38, 255, 0.18);
+    color: var(--texto-suave);
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .login-moderno {
+        max-width: 100%;
+        padding: 28px 20px;
+        border-radius: 21px;
+    }
+
+    .login-icono {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        font-size: 1.7rem;
+    }
+
+    .login-campo input {
+        padding: 14px 0;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,89 @@
+
+/* Tarjeta de producto */
+.producto-tarjeta {
+    position: relative;
+}
+
+/* Botón del corazón */
+.btn-favorito-producto {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #777777;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-favorito-producto:hover {
+    transform: scale(1.12);
+}
+
+/* Favorito guardado */
+.btn-favorito-producto.es-favorito {
+    color: #ff1744 !important;
+}
+
+/* Efecto de latido */
+.btn-favorito-producto.animar-corazon {
+    animation: latidoCorazon 0.45s ease;
+}
+
+@keyframes latidoCorazon {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.4);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Corazones flotantes */
+.corazon-flotante {
+    position: absolute;
+    z-index: 30;
+    pointer-events: none;
+    color: #ff1744;
+    font-size: 23px;
+    animation: flotarCorazon 1.1s ease-out forwards;
+}
+
+@keyframes flotarCorazon {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.6) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-85px) scale(1.4) rotate(25deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-favorito-producto.animar-corazon,
+    .corazon-flotante {
+        animation-duration: 0.01ms;
+    }
+}

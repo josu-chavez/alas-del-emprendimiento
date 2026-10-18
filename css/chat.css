@@ -1,0 +1,701 @@
+
+/* =====================================================
+   ALAS DEL EMPRENDIMIENTO
+   CHAT DEL COMPRADOR | DISEÑO PREMIUM RESPONSIVE
+   Compatible con escritorio, laptop, tablet y celular
+===================================================== */
+
+/* 1. VARIABLES */
+
+:root {
+    --chat-fondo: #0b0b16;
+    --chat-panel: #11111f;
+    --chat-panel-2: #17172a;
+    --chat-panel-3: #202039;
+
+    --chat-turquesa: #35ead4;
+    --chat-turquesa-claro: #8af5e3;
+    --chat-violeta: #9b72ff;
+    --chat-violeta-claro: #c5b4ff;
+
+    --chat-texto: #f5f5ff;
+    --chat-texto-secundario: #a7a7c1;
+    --chat-error: #ff7189;
+
+    --chat-borde: rgba(155, 150, 255, 0.17);
+    --chat-borde-turquesa: rgba(53, 234, 212, 0.25);
+
+    --chat-radio: 20px;
+    --chat-sombra: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+/* 2. AJUSTES GENERALES */
+
+[hidden] {
+    display: none !important;
+}
+
+.chat-contenedor,
+.chat-contenedor * {
+    box-sizing: border-box;
+}
+
+.chat-contenedor {
+    width: calc(100% - 36px);
+    max-width: 900px;
+    min-width: 0;
+    margin: 28px auto 45px;
+    color: var(--chat-texto);
+}
+
+/* 3. ENLACE PARA VOLVER */
+
+.chat-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 17px 3px;
+    color: var(--chat-turquesa);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.chat-volver:hover {
+    color: white;
+    transform: translateX(-3px);
+}
+
+/* 4. TARJETA PRINCIPAL DEL CHAT */
+
+.chat-caja {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--chat-borde);
+    border-radius: var(--chat-radio);
+    background:
+        radial-gradient(
+            ellipse at 100% 0%,
+            rgba(123, 83, 255, 0.12),
+            transparent 38%
+        ),
+        linear-gradient(145deg, #141424, #0f0f1c);
+    box-shadow:
+        var(--chat-sombra),
+        0 0 35px rgba(113, 78, 255, 0.055);
+}
+
+/* 5. ENCABEZADO */
+
+.chat-cabecera {
+    position: relative;
+    padding: 22px 25px;
+    border-bottom: 1px solid var(--chat-borde);
+    background: linear-gradient(
+        105deg,
+        rgba(53, 234, 212, 0.045),
+        rgba(155, 114, 255, 0.09)
+    );
+}
+
+.chat-cabecera::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--chat-turquesa),
+        var(--chat-violeta),
+        transparent
+    );
+    opacity: 0.55;
+    content: "";
+}
+
+.chat-cabecera h2 {
+    margin: 0;
+    color: var(--chat-texto);
+    font-size: clamp(19px, 2.5vw, 25px);
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.4px;
+    overflow-wrap: anywhere;
+}
+
+#estadoChat {
+    display: block;
+    margin: 7px 0 0;
+    color: var(--chat-texto-secundario);
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* 6. PRODUCTOS RELACIONADOS */
+
+.productos-chat-lista {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 245px), 1fr)
+    );
+    gap: 12px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--chat-borde);
+    background: rgba(8, 8, 18, 0.28);
+}
+
+.producto-chat {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid rgba(53, 234, 212, 0.16);
+    border-radius: 15px;
+    background: linear-gradient(
+        135deg,
+        rgba(53, 234, 212, 0.055),
+        rgba(155, 114, 255, 0.085)
+    );
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.13);
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.producto-chat:hover {
+    border-color: rgba(53, 234, 212, 0.42);
+    box-shadow: 0 8px 23px rgba(53, 234, 212, 0.06);
+    transform: translateY(-2px);
+}
+
+.producto-chat img {
+    display: block;
+    flex: 0 0 76px;
+    width: 76px;
+    height: 76px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 12px;
+    background: var(--chat-panel-2);
+}
+
+.producto-chat-datos {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.producto-chat-datos strong {
+    color: var(--chat-texto);
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.producto-chat-datos span {
+    color: var(--chat-turquesa);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.producto-chat-datos a {
+    color: var(--chat-violeta-claro);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.producto-chat-datos a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* 7. BOTÓN PARA QUITAR PRODUCTOS */
+
+.btn-quitar-producto-chat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: 7px;
+    padding: 8px 11px;
+    border: 1px solid rgba(255, 113, 137, 0.42);
+    border-radius: 9px;
+    background: rgba(255, 113, 137, 0.055);
+    color: #ff91a3;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-quitar-producto-chat:hover {
+    border-color: var(--chat-error);
+    background: rgba(255, 113, 137, 0.13);
+}
+
+.btn-quitar-producto-chat:disabled {
+    cursor: wait;
+    opacity: 0.55;
+}
+
+/* 8. VENTANA DE MENSAJES */
+
+.chat-mensajes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    min-width: 0;
+    min-height: 300px;
+    height: clamp(300px, 48vh, 430px);
+    max-height: 430px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 23px;
+    background:
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(53, 234, 212, 0.025),
+            transparent 40%
+        );
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #6754a9 #11111f;
+}
+
+.chat-mensajes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-mensajes::-webkit-scrollbar-track {
+    background: #11111f;
+}
+
+.chat-mensajes::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #6754a9;
+}
+
+.chat-mensajes::-webkit-scrollbar-thumb:hover {
+    background: var(--chat-violeta);
+}
+
+/* 9. BURBUJAS DE MENSAJES */
+
+.chat-mensaje {
+    position: relative;
+    width: fit-content;
+    max-width: min(78%, 580px);
+    min-width: 48px;
+    padding: 12px 15px;
+    border: 1px solid var(--chat-borde);
+    border-radius: 17px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    line-height: 1.55;
+    font-size: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.13);
+    animation: chat-aparecer 0.2s ease-out;
+}
+
+.chat-propio {
+    align-self: flex-end;
+    color: #071a19;
+    border-color: rgba(53, 234, 212, 0.32);
+    border-bottom-right-radius: 5px;
+    background: linear-gradient(135deg, #35ead4, #83f4dd);
+}
+
+.chat-otro {
+    align-self: flex-start;
+    color: var(--chat-texto);
+    border-color: rgba(155, 150, 255, 0.16);
+    border-bottom-left-radius: 5px;
+    background: linear-gradient(145deg, #22223a, #19192b);
+}
+
+/* 10. HORA DEL MENSAJE */
+
+.chat-hora {
+    display: block;
+    margin-top: 6px;
+    font-size: 10px;
+    line-height: 1.4;
+    opacity: 0.72;
+    text-align: right;
+}
+
+/* 11. MENSAJE DE CARGA */
+
+.chat-cargando {
+    margin: auto;
+    padding: 20px;
+    color: var(--chat-texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* 12. ACCIONES */
+
+.chat-acciones {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 23px 16px;
+}
+
+.chat-acciones button {
+    max-width: 100%;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 113, 137, 0.35);
+    border-radius: 9px;
+    background: rgba(255, 113, 137, 0.05);
+    color: #ff91a3;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.chat-acciones button:hover:not(:disabled) {
+    border-color: rgba(255, 113, 137, 0.7);
+    background: rgba(255, 113, 137, 0.12);
+}
+
+.chat-acciones button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+/* 13. FORMULARIO */
+
+.chat-formulario {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 11px;
+    align-items: end;
+    padding: 19px 23px 23px;
+    border-top: 1px solid var(--chat-borde);
+    background: linear-gradient(
+        110deg,
+        rgba(53, 234, 212, 0.025),
+        rgba(155, 114, 255, 0.055)
+    );
+}
+
+.chat-etiqueta {
+    grid-column: 1 / -1;
+    margin-bottom: -3px;
+    color: var(--chat-texto-secundario);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* CAMPO DE TEXTO */
+
+#contenidoMensaje {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 49px;
+    max-height: 135px;
+    resize: vertical;
+    padding: 13px 15px;
+    border: 1px solid rgba(155, 150, 255, 0.22);
+    border-radius: 13px;
+    outline: none;
+    background: rgba(9, 9, 21, 0.86);
+    color: var(--chat-texto);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#contenidoMensaje::placeholder {
+    color: #777790;
+}
+
+#contenidoMensaje:focus {
+    border-color: var(--chat-turquesa);
+    box-shadow: 0 0 0 3px rgba(53, 234, 212, 0.09);
+}
+
+#contenidoMensaje:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+/* 14. BOTÓN ENVIAR */
+
+.chat-formulario .btn-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 49px;
+    padding: 12px 20px;
+    border: 1px solid rgba(53, 234, 212, 0.35);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #35ead4, #80f4dd);
+    color: #071a19;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 850;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 5px 17px rgba(53, 234, 212, 0.09);
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.chat-formulario .btn-principal:hover:not(:disabled) {
+    filter: brightness(1.07);
+    transform: translateY(-2px);
+}
+
+.chat-formulario .btn-principal:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.chat-formulario .btn-principal:disabled {
+    cursor: not-allowed;
+    opacity: 0.48;
+    box-shadow: none;
+}
+
+/* 15. ANIMACIÓN */
+
+@keyframes chat-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 16. ESCRITORIOS GRANDES */
+
+@media (min-width: 1400px) {
+    .chat-contenedor {
+        max-width: 920px;
+        margin-top: 35px;
+    }
+}
+
+/* 17. TABLETAS Y PANTALLAS MEDIANAS */
+
+@media (max-width: 768px) {
+    .chat-contenedor {
+        width: calc(100% - 28px);
+        margin-top: 21px;
+    }
+
+    .chat-cabecera {
+        padding: 20px;
+    }
+
+    .productos-chat-lista {
+        padding: 15px;
+    }
+
+    .chat-mensajes {
+        height: 380px;
+        min-height: 280px;
+        max-height: 380px;
+        padding: 19px;
+    }
+
+    .chat-mensaje {
+        max-width: 84%;
+    }
+
+    .chat-acciones {
+        padding: 0 19px 14px;
+    }
+
+    .chat-formulario {
+        padding: 17px 19px 19px;
+    }
+}
+
+/* 18. CELULARES */
+
+@media (max-width: 480px) {
+    .chat-contenedor {
+        width: calc(100% - 20px);
+        margin: 14px auto 25px;
+    }
+
+    .chat-volver {
+        margin: 0 0 13px 2px;
+        font-size: 13px;
+    }
+
+    .chat-caja {
+        border-radius: 15px;
+    }
+
+    .chat-cabecera {
+        padding: 16px;
+    }
+
+    .chat-cabecera h2 {
+        font-size: 19px;
+    }
+
+    .productos-chat-lista {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+        padding: 11px;
+    }
+
+    .producto-chat {
+        gap: 10px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .producto-chat img {
+        flex-basis: 61px;
+        width: 61px;
+        height: 61px;
+        border-radius: 10px;
+    }
+
+    .producto-chat-datos strong {
+        font-size: 12px;
+    }
+
+    .producto-chat-datos span {
+        font-size: 13px;
+    }
+
+    .chat-mensajes {
+        height: 350px;
+        min-height: 240px;
+        max-height: 350px;
+        gap: 12px;
+        padding: 15px 10px;
+    }
+
+    .chat-mensaje {
+        max-width: 89%;
+        min-width: 42px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        font-size: 13px;
+    }
+
+    .chat-propio {
+        border-bottom-right-radius: 5px;
+    }
+
+    .chat-otro {
+        border-bottom-left-radius: 5px;
+    }
+
+    .chat-acciones {
+        padding: 0 11px 12px;
+    }
+
+    .chat-acciones button {
+        min-height: 34px;
+        padding: 7px 10px;
+        font-size: 10px;
+    }
+
+    .chat-formulario {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+        padding: 13px 11px 14px;
+    }
+
+    .chat-etiqueta {
+        grid-column: 1;
+        font-size: 11px;
+    }
+
+    #contenidoMensaje {
+        min-height: 47px;
+        max-height: 115px;
+        padding: 12px;
+        border-radius: 11px;
+        font-size: 13px;
+    }
+
+    .chat-formulario .btn-principal {
+        width: 100%;
+        min-height: 44px;
+        padding: 11px;
+        border-radius: 11px;
+        font-size: 12px;
+    }
+}
+
+/* 19. CELULARES MUY ESTRECHOS */
+
+@media (max-width: 350px) {
+    .chat-contenedor {
+        width: calc(100% - 14px);
+    }
+
+    .chat-cabecera {
+        padding: 13px;
+    }
+
+    .chat-mensajes {
+        padding: 12px 8px;
+    }
+
+    .chat-mensaje {
+        max-width: 93%;
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    .chat-formulario {
+        padding: 11px 8px 12px;
+    }
+}
+
+/* 20. ACCESIBILIDAD */
+
+button:focus-visible,
+a:focus-visible,
+#contenidoMensaje:focus-visible {
+    outline: 2px solid var(--chat-turquesa);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-mensaje,
+    .chat-volver,
+    .producto-chat,
+    .btn-quitar-producto-chat,
+    .chat-formulario .btn-principal,
+    #contenidoMensaje {
+        animation: none;
+        transition: none;
+        scroll-behavior: auto;
+    }
+}

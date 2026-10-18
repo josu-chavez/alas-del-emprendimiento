@@ -1,0 +1,236 @@
+
+/* ==========================================
+   ALAS DEL EMPRENDIMIENTO
+   DISEÑO DEL FORMULARIO DE REGISTRO
+   ========================================== */
+
+/* Ventana oscura de fondo */
+#modalRegistro.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+    background: rgba(5, 5, 18, 0.88);
+    backdrop-filter: blur(10px);
+}
+
+#modalRegistro.modal[hidden] {
+    display: none;
+}
+
+/* Tarjeta del formulario */
+#modalRegistro .modal-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    padding: 36px;
+    box-sizing: border-box;
+    color: #F5F3FF;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(176, 38, 255, 0.16),
+            transparent 45%
+        ),
+        #15152A;
+    border: 1px solid rgba(176, 38, 255, 0.55);
+    border-radius: 24px;
+    box-shadow:
+        0 0 35px rgba(176, 38, 255, 0.13),
+        0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: registroAparecer 0.25s ease-out;
+}
+
+/* Animación de entrada */
+@keyframes registroAparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Botón para cerrar */
+#modalRegistro .modal-cerrar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: #D8D5EA;
+    background: #22223A;
+    border: 1px solid #393954;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#modalRegistro .modal-cerrar:hover {
+    color: #FFFFFF;
+    background: #B026FF;
+    border-color: #B026FF;
+}
+
+/* Encabezado */
+#modalRegistro .etiqueta {
+    margin: 8px 35px 18px 0;
+    color: #C77DFF;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    line-height: 1.6;
+}
+
+#modalRegistro h2 {
+    margin: 0 0 12px;
+    color: #FFFFFF;
+    font-size: clamp(1.8rem, 5vw, 2.25rem);
+    line-height: 1.2;
+}
+
+#modalRegistro .modal-contenido > p {
+    margin: 0 0 26px;
+    color: #B8B5D1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Formulario */
+#modalRegistro #formularioRegistro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+#modalRegistro #formularioRegistro label {
+    margin-top: 5px;
+    color: #E8E5F7;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+#modalRegistro #formularioRegistro input {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 13px 15px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    background: #0D0D1B;
+    border: 1px solid #363650;
+    border-radius: 12px;
+    outline: none;
+    font: inherit;
+    font-size: 0.94rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#modalRegistro #formularioRegistro input::placeholder {
+    color: #77758F;
+}
+
+#modalRegistro #formularioRegistro input:focus {
+    border-color: #B026FF;
+    box-shadow: 0 0 0 3px rgba(176, 38, 255, 0.15);
+}
+
+#modalRegistro #btnRegistrar {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 15px;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#modalRegistro #btnRegistrar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 22px rgba(176, 38, 255, 0.25);
+}
+
+#modalRegistro #btnRegistrar:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+/* Mensajes de registro */
+#modalRegistro #mensajeRegistro {
+    margin: 5px 0 0;
+    color: #67E8F9;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Enlace que registro.js agrega al formulario */
+#modalRegistro #formularioRegistro > p:has(#irALogin) {
+    margin: 12px 0 0;
+    color: #B8B5D1;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    text-align: center;
+}
+
+#modalRegistro #irALogin {
+    padding: 3px 4px;
+    color: #67E8F9;
+    background: transparent;
+    border: none;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#modalRegistro #irALogin:hover {
+    color: #C77DFF;
+    text-decoration: underline;
+}
+
+/* Adaptación para celulares */
+@media (max-width: 480px) {
+    #modalRegistro.modal {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    #modalRegistro .modal-contenido {
+        margin: auto 0;
+        padding: 28px 21px;
+        border-radius: 19px;
+    }
+
+    #modalRegistro .etiqueta {
+        font-size: 0.7rem;
+    }
+
+    #modalRegistro h2 {
+        font-size: 1.8rem;
+    }
+
+    #modalRegistro #formularioRegistro input {
+        min-height: 46px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #modalRegistro .modal-contenido {
+        animation: none;
+    }
+}

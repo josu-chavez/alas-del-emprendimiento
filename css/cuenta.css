@@ -1,0 +1,343 @@
+
+/* =========================================
+   ALAS DEL EMPRENDIMIENTO
+   MI CUENTA - DISEÑO RESPONSIVO
+   ========================================= */
+
+
+.cuenta-pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 20px 60px;
+    box-sizing: border-box;
+}
+
+.cuenta-pagina > .cuenta-tarjeta {
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 0 1 600px;
+}
+
+
+.cuenta-tarjeta {
+    width: 100%;
+    min-width: 0;
+    max-width: 600px;
+    margin-inline: auto;
+    padding: 32px;
+    box-sizing: border-box;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(176, 38, 255, 0.12),
+            transparent 55%
+        ),
+        #15152A;
+    border: 1px solid rgba(176, 38, 255, 0.45);
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    color: #F5F3FF;
+}
+
+.cuenta-tarjeta h2 {
+    margin: 18px 0 12px;
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+}
+
+.cuenta-estado {
+    margin: 0 0 24px;
+    color: #B8B5D1;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.cuenta-datos {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.cuenta-datos[hidden] {
+    display: none;
+}
+
+.cuenta-correo {
+    padding: 14px;
+    background: #0B0B16;
+    border: 1px solid #343451;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+}
+
+.cuenta-boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    margin: 0;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.cuenta-volver {
+    margin-top: 24px !important;
+}
+
+.cuenta-boton:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* TABLETAS */
+@media (max-width: 768px) {
+    .cuenta-pagina {
+        padding: 30px 18px 45px;
+    }
+
+    .cuenta-tarjeta {
+        padding: 28px;
+    }
+}
+
+/* CELULARES */
+@media (max-width: 480px) {
+    .cuenta-pagina {
+        padding: 20px 12px 35px;
+    }
+
+    .cuenta-tarjeta {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+
+    .cuenta-tarjeta h2 {
+        font-size: 1.7rem;
+    }
+
+    .cuenta-boton {
+        min-height: 46px;
+        padding: 12px;
+    }
+}
+
+/* ========================================
+   PERFIL DEL USUARIO
+   ALAS DEL EMPRENDIMIENTO - COLORES NEÓN
+======================================== */
+
+.perfil-resumen {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    margin: 25px 0;
+    background: var(--fondo-secundario);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    text-align: left;
+    box-shadow: var(--sombra-morada);
+}
+
+.perfil-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(176, 38, 255, 0.12);
+    border: 1px solid var(--morado);
+    box-shadow: var(--sombra-morada);
+    color: var(--texto);
+    font-size: 27px;
+}
+
+.perfil-resumen h3 {
+    margin: 0 0 7px;
+    color: var(--texto);
+    font-size: 20px;
+}
+
+.perfil-resumen p {
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+/* OPCIONES DE LA CUENTA */
+
+.opciones-cuenta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 25px 0;
+}
+
+.opcion-cuenta {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    padding: 18px;
+    box-sizing: border-box;
+    color: var(--texto);
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    text-decoration: none;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition:
+        border-color var(--transicion),
+        background var(--transicion),
+        box-shadow var(--transicion),
+        transform var(--transicion);
+}
+
+.opcion-cuenta:hover {
+    background: var(--tarjeta-hover);
+    border-color: var(--cian);
+    box-shadow: var(--sombra-cian);
+    transform: translateY(-2px);
+}
+
+.opcion-cuenta:focus-visible {
+    outline: 2px solid var(--cian);
+    outline-offset: 3px;
+}
+
+.opcion-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(0, 245, 255, 0.08);
+    border: 1px solid rgba(0, 245, 255, 0.25);
+    color: var(--cian);
+    font-size: 23px;
+}
+
+/* MORADO: PUBLICAR PRODUCTOS */
+
+.opcion-cuenta:nth-child(2) .opcion-icono {
+    color: var(--morado);
+    background: rgba(176, 38, 255, 0.12);
+    border-color: rgba(176, 38, 255, 0.3);
+}
+
+/* ROSA: FAVORITOS */
+
+.opcion-cuenta:nth-child(3) .opcion-icono {
+    color: var(--rosa);
+    background: rgba(255, 46, 147, 0.1);
+    border-color: rgba(255, 46, 147, 0.3);
+}
+
+/* VERDE: AJUSTES */
+
+.opcion-cuenta:nth-child(4) .opcion-icono {
+    color: var(--verde);
+    background: rgba(57, 255, 20, 0.08);
+    border-color: rgba(57, 255, 20, 0.25);
+}
+
+.opcion-texto {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.opcion-texto strong {
+    color: var(--texto);
+    font-size: 15px;
+    font-weight: 700;
+    transition: color var(--transicion);
+}
+
+.opcion-cuenta:hover .opcion-texto strong {
+    color: var(--cian);
+}
+
+.opcion-texto small {
+    color: var(--texto-suave);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.opcion-flecha {
+    color: var(--cian);
+    font-size: 27px;
+    flex-shrink: 0;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+/* CERRAR SESIÓN */
+
+#btnCerrarSesion {
+    margin-top: 10px;
+}
+
+#btnCerrarSesion:hover {
+    color: var(--rosa);
+    border-color: var(--rosa);
+    box-shadow: 0 0 16px rgba(255, 46, 147, 0.15);
+}
+
+/* DISEÑO RESPONSIVO */
+
+@media (max-width: 600px) {
+    .opciones-cuenta {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .opcion-cuenta {
+        padding: 15px;
+    }
+
+    .perfil-resumen {
+        padding: 16px;
+    }
+
+    .opcion-texto strong {
+        font-size: 14px;
+    }
+}
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+    .opcion-cuenta {
+        transition: none;
+    }
+
+    .opcion-cuenta:hover {
+        transform: none;
+    }
+}

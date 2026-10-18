@@ -1,0 +1,339 @@
+
+/* =========================================
+   ALAS DEL EMPRENDIMIENTO
+   FORMULARIO PROFESIONAL DE PRODUCTOS
+========================================= */
+
+#modalProducto {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(5, 5, 15, 0.84);
+    backdrop-filter: blur(12px);
+}
+
+/* TARJETA PRINCIPAL */
+
+#modalProducto .modal-contenido.formulario-producto {
+    position: relative;
+    width: min(100%, 680px);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 36px;
+    color: #f5f3ff;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124, 58, 237, 0.13),
+            transparent 35%
+        ),
+        #141421;
+    border: 1px solid #343149;
+    border-radius: 24px;
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.55),
+        0 0 40px rgba(124, 58, 237, 0.09);
+    scrollbar-color: #6540a5 #171725;
+}
+
+/* ENCABEZADO */
+
+#modalProducto .etiqueta {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    color: #d8baff;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(167, 139, 250, 0.22);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+#modalProducto #tituloProducto {
+    margin: 0 45px 12px 0;
+    color: #ffffff;
+    font-size: clamp(27px, 4vw, 35px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+}
+
+#modalProducto .texto-neon {
+    color: #bd91ff;
+    text-shadow: 0 0 22px rgba(168, 85, 247, 0.25);
+}
+
+#modalProducto .modal-contenido > p {
+    margin: 0 0 28px;
+    color: #a5a3bb;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* BOTÓN CERRAR */
+
+#modalProducto .modal-cerrar {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    color: #c9c5da;
+    background: #202031;
+    border: 1px solid #37364b;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#modalProducto .modal-cerrar:hover {
+    color: white;
+    background: #7138c5;
+    border-color: #a879f5;
+    transform: rotate(5deg);
+}
+
+/* FORMULARIO: ETIQUETAS Y CAMPOS ALINEADOS */
+
+#modalProducto #formularioProducto {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    color: #f5f3ff;
+}
+
+/* ETIQUETAS */
+
+#modalProducto #formularioProducto > label {
+    display: block;
+    align-self: stretch;
+    margin: 0 0 9px;
+    color: #e9e5f5;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* CAMPOS DE TEXTO, PRECIO, CANTIDAD Y CATEGORÍA */
+
+#modalProducto #formularioProducto input:not([type="file"]),
+#modalProducto #formularioProducto select,
+#modalProducto #formularioProducto textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0 0 22px;
+    padding: 14px 15px;
+    color: #f8f7ff;
+    background: #0e0e19;
+    border: 1px solid #353449;
+    border-radius: 12px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+/* TEXTO DE EJEMPLO */
+
+#modalProducto #formularioProducto input::placeholder,
+#modalProducto #formularioProducto textarea::placeholder {
+    color: #77758f;
+}
+
+/* EFECTO AL SELECCIONAR UN CAMPO */
+
+#modalProducto #formularioProducto input:focus,
+#modalProducto #formularioProducto select:focus,
+#modalProducto #formularioProducto textarea:focus {
+    background: #11111f;
+    border-color: #a16bf1;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.13);
+}
+
+/* LISTA DE CATEGORÍAS */
+
+#modalProducto #formularioProducto select {
+    cursor: pointer;
+}
+
+#modalProducto #formularioProducto select option {
+    color: #ffffff;
+    background: #171725;
+}
+
+/* DESCRIPCIÓN */
+
+#modalProducto #formularioProducto textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+/* FOTOGRAFÍA DEL PRODUCTO */
+
+#modalProducto .ayuda-portada {
+    margin: -2px 0 12px;
+    color: #9693ad;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+#modalProducto #formularioProducto input[type="file"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0 0 18px;
+    padding: 16px;
+    color: #c6c2d9;
+    background: rgba(10, 10, 20, 0.75);
+    border: 1px dashed #7251a5;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+#modalProducto #formularioProducto input[type="file"]:hover {
+    background: rgba(124, 58, 237, 0.08);
+    border-color: #b38af5;
+}
+
+#modalProducto #imagenProducto::file-selector-button {
+    margin-right: 12px;
+    padding: 10px 13px;
+    color: #ffffff;
+    background: #6334a5;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#modalProducto #imagenProducto::file-selector-button:hover {
+    background: #804bd0;
+}
+
+/* VISTA PREVIA DE LA IMAGEN */
+
+#modalProducto #vistaPreviaProducto:not([hidden]) {
+    display: block;
+    width: 100%;
+    max-height: 280px;
+    box-sizing: border-box;
+    margin: 0 0 24px;
+    padding: 12px;
+    object-fit: contain;
+    background: #0b0b15;
+    border: 1px solid #37354b;
+    border-radius: 16px;
+}
+
+/* BOTÓN PUBLICAR */
+
+#modalProducto #btnGuardarProducto {
+    display: block;
+    width: 100%;
+    min-height: 54px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 15px 20px;
+    color: #ffffff;
+    background: linear-gradient(110deg, #7139bd, #9255df);
+    border: 1px solid rgba(196, 165, 253, 0.55);
+    border-radius: 13px;
+    box-shadow: 0 8px 24px rgba(113, 57, 189, 0.2);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+#modalProducto #btnGuardarProducto:hover:not(:disabled) {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(146, 85, 223, 0.28);
+}
+
+#modalProducto #btnGuardarProducto:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#modalProducto #btnGuardarProducto:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+/* MENSAJES */
+
+#modalProducto #mensajeProducto {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 12px 0 0;
+    color: #55e5bf;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* CELULARES Y PANTALLAS PEQUEÑAS */
+
+@media (max-width: 600px) {
+    #modalProducto {
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    #modalProducto .modal-contenido.formulario-producto {
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        padding: 26px 19px;
+        border-radius: 18px;
+    }
+
+    #modalProducto .modal-cerrar {
+        top: 15px;
+        right: 15px;
+        width: 36px;
+        height: 36px;
+    }
+
+    #modalProducto #tituloProducto {
+        padding-right: 20px;
+        font-size: 27px;
+    }
+
+    #modalProducto #formularioProducto input:not([type="file"]),
+    #modalProducto #formularioProducto select,
+    #modalProducto #formularioProducto textarea {
+        font-size: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #modalProducto *,
+    #modalProducto *::before,
+    #modalProducto *::after {
+        transition: none !important;
+    }
+}

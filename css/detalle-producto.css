@@ -1,0 +1,491 @@
+
+/* =====================================================
+   ALAS DEL EMPRENDIMIENTO
+   DETALLE DE PRODUCTO — DISEÑO PREMIUM
+   Colores: negro, turquesa y violeta
+===================================================== */
+
+:root {
+    --dp-fondo: #0B0B16;
+    --dp-panel: #121222;
+    --dp-panel-claro: #19192D;
+    --dp-texto: #F5F5FF;
+    --dp-secundario: #A9ABC4;
+    --dp-turquesa: #42E8C5;
+    --dp-cian: #00F5FF;
+    --dp-violeta: #B026FF;
+    --dp-borde: rgba(183, 181, 230, 0.14);
+    --dp-radio: 22px;
+    --dp-sombra: 0 24px 70px rgba(0, 0, 0, 0.30);
+}
+
+/* CONTENEDOR GENERAL */
+
+.detalle-contenedor {
+    width: min(1200px, calc(100% - 48px));
+    margin: 38px auto 80px;
+    color: var(--dp-texto);
+    animation: dp-aparecer 0.55s ease both;
+}
+
+@keyframes dp-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BOTÓN VOLVER */
+
+.detalle-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+    padding: 11px 17px;
+    color: #A6FFF0;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    background: rgba(66, 232, 197, 0.055);
+    border: 1px solid rgba(66, 232, 197, 0.18);
+    border-radius: 12px;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.detalle-volver:hover {
+    color: #FFFFFF;
+    background: rgba(66, 232, 197, 0.12);
+    border-color: rgba(66, 232, 197, 0.65);
+    transform: translateX(-3px);
+}
+
+.detalle-volver:focus-visible {
+    outline: 2px solid var(--dp-cian);
+    outline-offset: 4px;
+}
+
+/* TARJETA PRINCIPAL */
+
+.detalle-tarjeta {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-items: start;
+    gap: 42px;
+    padding: 34px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            ellipse at 0% 0%,
+            rgba(0, 245, 255, 0.075),
+            transparent 38%
+        ),
+        radial-gradient(
+            ellipse at 100% 100%,
+            rgba(176, 38, 255, 0.055),
+            transparent 35%
+        ),
+        linear-gradient(145deg, #171729 0%, #10101D 60%, #0E0E19 100%);
+    border: 1px solid var(--dp-borde);
+    border-radius: 28px;
+    box-shadow: var(--dp-sombra);
+}
+
+.detalle-tarjeta::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 7%;
+    width: 86%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 245, 255, 0.85),
+        rgba(176, 38, 255, 0.75),
+        transparent
+    );
+}
+
+/* GALERÍA / IMAGEN PRINCIPAL */
+
+.detalle-fotografia {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 420px;
+    padding: 24px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(0, 245, 255, 0.10),
+            transparent 58%
+        ),
+        linear-gradient(145deg, #1B1B2F, #10101C);
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 22px;
+}
+
+.detalle-fotografia::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.025),
+        transparent 40%,
+        rgba(176, 38, 255, 0.025)
+    );
+}
+
+.detalle-fotografia img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 420px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.18));
+    transition: transform 0.4s ease;
+}
+
+.detalle-fotografia:hover img {
+    transform: scale(1.045);
+}
+
+.detalle-sin-foto {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 240px;
+    font-size: 82px;
+    filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.10));
+}
+
+/* PANEL DE INFORMACIÓN */
+
+.detalle-informacion {
+    min-width: 0;
+    padding: 5px 0;
+}
+
+.detalle-informacion h1 {
+    margin: 0 0 20px;
+    color: var(--dp-texto);
+    font-size: clamp(29px, 3vw, 42px);
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: -1px;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+}
+
+/* PRECIO */
+
+.detalle-precio {
+    display: block;
+    margin: 0 0 20px;
+    color: var(--dp-turquesa);
+    font-size: clamp(32px, 3.2vw, 43px);
+    font-weight: 850;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    text-shadow: 0 0 28px rgba(66, 232, 197, 0.13);
+    overflow-wrap: anywhere;
+}
+
+/* CATEGORÍA */
+
+.detalle-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 22px;
+    padding: 9px 14px;
+    color: #A9F8FF;
+    font-size: 11px;
+    font-weight: 750;
+    line-height: 1.4;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    background: rgba(0, 245, 255, 0.075);
+    border: 1px solid rgba(0, 245, 255, 0.19);
+    border-radius: 9px;
+}
+
+/* DESCRIPCIÓN Y DATOS */
+
+.detalle-informacion > p:not(.detalle-precio):not(.detalle-etiqueta) {
+    margin: 0 0 17px;
+    color: var(--dp-secundario);
+    font-size: 14px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+/* DISPONIBILIDAD: EL HTML ACTUAL USA ESTE PÁRRAFO
+   PARA MOSTRAR LAS UNIDADES O SI ESTÁ AGOTADO */
+
+.detalle-informacion > p:nth-of-type(3) {
+    margin-top: 20px;
+    padding: 13px 15px;
+    color: #B8F8E8;
+    font-size: 13px;
+    font-weight: 650;
+    background: rgba(66, 232, 197, 0.055);
+    border: 1px solid rgba(66, 232, 197, 0.13);
+    border-radius: 11px;
+}
+
+/* TARJETA DE LA TIENDA */
+
+.detalle-tienda {
+    margin-top: 27px;
+    padding: 23px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(176, 38, 255, 0.075),
+            rgba(0, 245, 255, 0.035)
+        ),
+        rgba(255, 255, 255, 0.012);
+    border: 1px solid rgba(176, 38, 255, 0.19);
+    border-radius: 18px;
+}
+
+.detalle-tienda h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 17px;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.detalle-tienda p {
+    margin: 9px 0;
+    color: #BFC0D7;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.detalle-tienda p:first-of-type {
+    color: #A4FFEE;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+/* BOTONES DE ACCIÓN */
+
+.detalle-informacion > a.btn-principal,
+.detalle-informacion > button.btn-principal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 13px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+}
+
+.detalle-informacion > a.btn-principal {
+    color: #071714;
+    background: linear-gradient(105deg, #42E8C5, #7BF5E3);
+    border: 1px solid transparent;
+    box-shadow: 0 8px 24px rgba(66, 232, 197, 0.12);
+}
+
+.detalle-informacion > a.btn-principal:hover {
+    background: linear-gradient(105deg, #68F5D8, #A0FFEF);
+    box-shadow: 0 12px 30px rgba(66, 232, 197, 0.20);
+    transform: translateY(-2px);
+}
+
+.detalle-informacion > button.btn-principal {
+    color: #F8F4FF;
+    background: linear-gradient(
+        105deg,
+        rgba(176, 38, 255, 0.15),
+        rgba(86, 75, 180, 0.14)
+    );
+    border: 1px solid rgba(176, 38, 255, 0.34);
+}
+
+.detalle-informacion > button.btn-principal:hover:not(:disabled) {
+    background: linear-gradient(
+        105deg,
+        rgba(176, 38, 255, 0.24),
+        rgba(86, 75, 180, 0.23)
+    );
+    border-color: rgba(176, 38, 255, 0.65);
+    box-shadow: 0 10px 28px rgba(176, 38, 255, 0.11);
+    transform: translateY(-2px);
+}
+
+.detalle-informacion > button.btn-principal:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+.detalle-informacion > a.btn-principal:focus-visible,
+.detalle-informacion > button.btn-principal:focus-visible {
+    outline: 2px solid var(--dp-cian);
+    outline-offset: 4px;
+}
+
+/* ESTADOS DE CARGA Y ERROR */
+
+.detalle-mensaje {
+    box-sizing: border-box;
+    padding: 30px 24px;
+    color: #D3D4E8;
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: center;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(0, 245, 255, 0.045),
+            transparent 70%
+        ),
+        var(--dp-panel);
+    border: 1px solid var(--dp-borde);
+    border-radius: 18px;
+}
+
+/* TABLETAS */
+
+@media (max-width: 900px) {
+    .detalle-tarjeta {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        padding: 26px;
+    }
+
+    .detalle-fotografia {
+        min-height: 360px;
+    }
+
+    .detalle-fotografia img {
+        height: 360px;
+    }
+
+    .detalle-informacion {
+        padding: 0;
+    }
+
+    .detalle-informacion h1 {
+        font-size: clamp(28px, 5vw, 37px);
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 560px) {
+    .detalle-contenedor {
+        width: calc(100% - 24px);
+        margin: 23px auto 42px;
+    }
+
+    .detalle-volver {
+        margin-bottom: 17px;
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+    .detalle-tarjeta {
+        gap: 23px;
+        padding: 14px;
+        border-radius: 20px;
+    }
+
+    .detalle-fotografia {
+        min-height: 260px;
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .detalle-fotografia img {
+        height: 260px;
+    }
+
+    .detalle-informacion h1 {
+        margin-bottom: 15px;
+        font-size: 28px;
+        letter-spacing: -0.5px;
+    }
+
+    .detalle-precio {
+        margin-bottom: 17px;
+        font-size: 32px;
+    }
+
+    .detalle-etiqueta {
+        margin-bottom: 17px;
+    }
+
+    .detalle-informacion > p:not(.detalle-precio):not(.detalle-etiqueta) {
+        font-size: 13px;
+    }
+
+    .detalle-tienda {
+        margin-top: 23px;
+        padding: 17px;
+    }
+
+    .detalle-informacion > a.btn-principal,
+    .detalle-informacion > button.btn-principal {
+        min-height: 49px;
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+    .detalle-contenedor {
+        animation: none;
+    }
+
+    .detalle-volver,
+    .detalle-fotografia img,
+    .detalle-informacion > a.btn-principal,
+    .detalle-informacion > button.btn-principal {
+        transition: none;
+    }
+}
