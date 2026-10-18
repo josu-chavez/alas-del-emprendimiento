@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#101827">
+    <meta name="description" content="Administra tu emprendimiento, publica productos y conecta con tus clientes en ALAS DEL EMPRENDIMIENTO.">
+
+    <title>Mi tienda - ALAS DEL EMPRENDIMIENTO</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/mi-tienda.css">
+    <link rel="stylesheet" href="css/publicar-producto.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+        <div class="contenedor encabezado-contenido">
+
+            <a href="index.html" class="logo">
+                ALAS DEL EMPRENDIMIENTO
+            </a>
+
+            <nav class="navegacion" aria-label="Navegación principal">
+                <a href="index.html">Inicio</a>
+
+                <a id="enlacePerfilPublico" href="#" hidden>
+                    Mi perfil público
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="administrar-tienda">
+        <section class="panel-tienda">
+
+            <!-- TÍTULO DEL PANEL -->
+            <div class="titulo-panel">
+                <span class="etiqueta-panel">
+                    PANEL DEL VENDEDOR
+                </span>
+
+                <h1>Mi tienda</h1>
+
+                <p>
+                    Administra tus productos, revisa tus mensajes
+                    y personaliza tu emprendimiento.
+                </p>
+            </div>
+
+            <!-- MENSAJES DEL SISTEMA -->
+            <div
+                id="mensajeTienda"
+                class="mensaje-panel"
+                role="status"
+                aria-live="polite"
+                hidden>
+            </div>
+
+            <!-- RESUMEN DE LA TIENDA -->
+            <section
+                id="resumenTienda"
+                class="resumen-tienda"
+                aria-label="Resumen de mi tienda">
+
+                <img
+                    id="portadaPanelTienda"
+                    class="portada-panel-tienda"
+                    src=""
+                    alt="Portada de mi tienda"
+                    hidden>
+
+                <div class="datos-resumen-tienda">
+
+                    <h2 id="nombrePanelTienda">
+                        Mi emprendimiento
+                    </h2>
+
+                    <p id="descripcionPanelTienda">
+                        Aquí aparecerá la descripción de tu tienda.
+                    </p>
+
+                    <div class="estadisticas-tienda">
+
+                        <div class="estadistica-tienda">
+                            <span>Visitas</span>
+                            <strong id="visitasPanelTienda">0</strong>
+                        </div>
+
+                        <div class="estadistica-tienda">
+                            <span>Calificación</span>
+                            <strong id="calificacionPanelTienda">
+                                Sin calificaciones
+                            </strong>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- MENÚ PRINCIPAL -->
+            <section
+                id="menuTienda"
+                class="menu-tienda"
+                aria-label="Opciones de mi tienda">
+
+                <button
+                    type="button"
+                    class="opcion-tienda"
+                    id="btnAbrirPublicar">
+
+                    <span class="icono-opcion" aria-hidden="true">＋</span>
+
+                    <span class="titulo-opcion">
+                        Publicar productos
+                    </span>
+
+                    <span class="descripcion-opcion">
+                        Añade productos a tu catálogo.
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="opcion-tienda"
+                    id="btnVerFavoritos">
+
+                    <span class="icono-opcion" aria-hidden="true">♡</span>
+
+                    <span class="titulo-opcion">
+                        Mis favoritos
+                    </span>
+
+                    <span class="descripcion-opcion">
+                        Consulta tus productos guardados.
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="opcion-tienda"
+                    id="btnVerMisProductos">
+
+                    <span class="icono-opcion" aria-hidden="true">▦</span>
+
+                    <span class="titulo-opcion">
+                        Mis productos
+                    </span>
+
+                    <span class="descripcion-opcion">
+                        Administra tus publicaciones.
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="opcion-tienda"
+                    id="btnVerMensajes">
+
+                    <span class="icono-opcion" aria-hidden="true">✉</span>
+
+                    <span class="titulo-opcion">
+                        Mensajes
+                    </span>
+
+                    <span class="descripcion-opcion">
+                        Consulta tus conversaciones.
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="opcion-tienda"
+                    id="btnAbrirAjustes">
+
+                    <span class="icono-opcion" aria-hidden="true">⚙</span>
+
+                    <span class="titulo-opcion">
+                        Ajustes
+                    </span>
+
+                    <span class="descripcion-opcion">
+                        Edita los datos de tu tienda.
+                    </span>
+                </button>
+
+            </section>
+
+            <!-- SECCIÓN: MIS PRODUCTOS -->
+            <section
+                id="seccionMisProductos"
+                class="seccion-panel"
+                aria-labelledby="tituloMisProductos"
+                hidden>
+
+                <h2 id="tituloMisProductos">Mis productos</h2>
+
+                <p>
+                    Aquí aparecerán los productos que publicaste.
+                </p>
+
+                <div
+                    id="listaMisProductos"
+                    class="lista-mis-productos">
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-principal"
+                    id="btnPublicarDesdeProductos">
+                    Publicar producto
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-secundario"
+                    id="btnVolverDesdeProductos">
+                    Volver al panel
+                </button>
+
+            </section>
+
+            <!-- SECCIÓN: FAVORITOS -->
+            <section
+                id="seccionFavoritos"
+                class="seccion-panel"
+                aria-labelledby="tituloFavoritos"
+                hidden>
+
+                <h2 id="tituloFavoritos">Mis favoritos</h2>
+
+                <p id="mensajeFavoritos">
+                    Tus productos favoritos aparecerán aquí.
+                </p>
+
+                <div id="listaFavoritos"></div>
+
+                <button
+                    type="button"
+                    class="btn-secundario"
+                    id="btnVolverDesdeFavoritos">
+                    Volver al panel
+                </button>
+
+            </section>
+
+            <!-- SECCIÓN: MENSAJES -->
+            <section
+                id="seccionMensajes"
+                class="seccion-panel"
+                aria-labelledby="tituloMensajes"
+                hidden>
+
+                <h2 id="tituloMensajes">Mis conversaciones</h2>
+
+                <p>
+                    Consulta los mensajes de tus clientes y responde
+                    sus preguntas.
+                </p>
+
+                <div class="chat-contenedor">
+
+                    <!-- LISTA DE CONVERSACIONES -->
+                    <aside class="chat-lista">
+
+                        <div class="chat-lista-encabezado">
+                            <h3>Conversaciones</h3>
+
+                            <button
+                                type="button"
+                                id="btnActualizarConversaciones"
+                                class="btn-secundario">
+                                Actualizar
+                            </button>
+                        </div>
+
+                        <p
+                            id="mensajeListaConversaciones"
+                            role="status"
+                            aria-live="polite">
+                            Tus conversaciones aparecerán aquí.
+                        </p>
+
+                        <div id="listaConversaciones"></div>
+
+                    </aside>
+
+                    <!-- ÁREA DEL CHAT -->
+                    <div class="chat-area">
+
+                        <div class="chat-cabecera">
+
+                            <h3 id="tituloChat">
+                                Selecciona una conversación
+                            </h3>
+
+                            <p id="estadoChat">
+                                Abre una conversación para leer los mensajes.
+                            </p>
+
+                            <button
+                                type="button"
+                                id="btnVaciarConversacion"
+                                class="btn-secundario"
+                                disabled>
+                                Vaciar conversación
+                            </button>
+
+                        </div>
+
+                        <!-- PRODUCTOS DE LA CONVERSACIÓN -->
+                        <section
+                            id="productoChat"
+                            class="chat-producto"
+                            aria-label="Productos de la conversación"
+                            hidden>
+
+                            <article class="chat-producto-principal">
+
+                                <img
+                                    id="imagenProductoChat"
+                                    src=""
+                                    alt="Imagen del producto"
+                                    loading="lazy"
+                                    hidden>
+
+                                <div class="chat-producto-datos">
+
+                                    <strong id="nombreProductoChat"></strong>
+
+                                    <span id="precioProductoChat"></span>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Los productos adicionales se agregan desde JavaScript -->
+
+                        </section>
+
+                        <!-- MENSAJES -->
+                        <div
+                            id="listaMensajes"
+                            class="chat-mensajes"
+                            aria-live="polite"
+                            aria-relevant="additions text">
+                        </div>
+
+                        <!-- FORMULARIO PARA ENVIAR MENSAJES -->
+                        <form
+                            id="formularioEnviarMensaje"
+                            class="chat-formulario">
+
+                            <label for="contenidoMensaje">
+                                Escribe tu mensaje
+                            </label>
+
+                            <textarea
+                                id="contenidoMensaje"
+                                rows="3"
+                                maxlength="3000"
+                                placeholder="Escribe aquí..."
+                                required
+                                disabled></textarea>
+
+                            <button
+                                type="submit"
+                                id="btnEnviarMensaje"
+                                class="btn-principal"
+                                disabled>
+                                Enviar mensaje
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-secundario"
+                    id="btnVolverDesdeMensajes">
+                    Volver al panel
+                </button>
+
+            </section>
+
+            <!-- SECCIÓN: AJUSTES -->
+            <section
+                id="seccionAjustes"
+                class="seccion-panel"
+                aria-labelledby="tituloAjustes"
+                hidden>
+
+                <h2 id="tituloAjustes">Ajustes de mi tienda</h2>
+
+                <p>
+                    Modifica la información que ven tus clientes.
+                </p>
+
+                <form id="formularioEditarTienda">
+
+                    <!-- NOMBRE -->
+                    <div class="campo-tienda">
+                        <label for="editarNombre">
+                            Nombre de la tienda
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editarNombre"
+                            maxlength="100"
+                            autocomplete="organization"
+                            required>
+                    </div>
+
+                    <!-- DESCRIPCIÓN -->
+                    <div class="campo-tienda">
+                        <label for="editarDescripcion">
+                            Descripción del negocio
+                        </label>
+
+                        <textarea
+                            id="editarDescripcion"
+                            rows="4"
+                            maxlength="1000"
+                            placeholder="Describe tu emprendimiento y los productos que ofreces."></textarea>
+                    </div>
+
+                    <!-- CATEGORÍA -->
+                    <div class="campo-tienda">
+                        <label for="editarCategoria">
+                            Categoría
+                        </label>
+
+                        <select id="editarCategoria" required>
+                            <option value="">
+                                Selecciona una categoría
+                            </option>
+
+                            <option value="Ropa">Ropa</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Calzados">Calzados</option>
+                            <option value="Hogar">Hogar</option>
+                            <option value="Belleza">Belleza</option>
+                            <option value="Juguetes">Juguetes</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <!-- UBICACIÓN -->
+                    <div class="campo-tienda">
+                        <label for="editarUbicacion">
+                            Ubicación
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editarUbicacion"
+                            maxlength="150"
+                            autocomplete="street-address"
+                            placeholder="Ej.: El Alto, La Paz">
+                    </div>
+
+                    <!-- REDES SOCIALES -->
+                    <div class="campo-tienda">
+                        <label for="editarRedSocial">
+                            Red social o enlace de contacto
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editarRedSocial"
+                            maxlength="500"
+                            placeholder="Ej.: https://facebook.com/mitienda">
+                    </div>
+
+                    <!-- WHATSAPP -->
+                    <div class="campo-tienda">
+                        <label for="editarWhatsapp">
+                            Número de WhatsApp
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="editarWhatsapp"
+                            placeholder="Ej.: +591 71234567"
+                            maxlength="20"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            aria-describedby="ayudaWhatsapp">
+
+                        <small id="ayudaWhatsapp">
+                            Incluye el código de país. Para Bolivia,
+                            utiliza +591 seguido de tu número.
+                            Este contacto podrá mostrarse a los compradores.
+                        </small>
+                    </div>
+
+                    <!-- PORTADA -->
+                    <div class="campo-tienda">
+                        <label for="editarPortada">
+                            Cambiar portada de la tienda
+                        </label>
+
+                        <input
+                            type="file"
+                            id="editarPortada"
+                            accept="image/jpeg,image/png,image/webp"
+                            aria-describedby="ayudaPortada">
+
+                        <small id="ayudaPortada">
+                            Formatos JPG, PNG o WebP. Máximo 5 MB.
+                        </small>
+                    </div>
+
+                    <!-- VISTA PREVIA -->
+                    <div class="vista-previa-tienda">
+
+                        <p>Vista previa de la portada</p>
+
+                        <img
+                            id="vistaPreviaEditarPortada"
+                            src=""
+                            alt="Vista previa de la portada seleccionada"
+                            hidden>
+
+                        <p id="sinPortada">
+                            Todavía no hay una portada seleccionada.
+                        </p>
+
+                    </div>
+
+                    <!-- GUARDAR -->
+                    <button
+                        type="submit"
+                        id="btnGuardarCambiosTienda"
+                        class="btn-principal">
+                        Guardar cambios
+                    </button>
+
+                </form>
+
+                <!-- PERFIL PÚBLICO -->
+                <div class="acciones-tienda">
+
+                    <a
+                        id="enlacePerfilAjustes"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Ver mi perfil público
+                    </a>
+
+                </div>
+
+                <!-- CERRAR SESIÓN -->
+                <button
+                    type="button"
+                    id="btnCerrarSesion"
+                    class="btn-secundario">
+                    Cerrar sesión
+                </button>
+
+                <!-- VOLVER -->
+                <button
+                    type="button"
+                    class="btn-secundario"
+                    id="btnVolverDesdeAjustes">
+                    Volver al panel
+                </button>
+
+            </section>
+
+            <!-- VOLVER AL INICIO -->
+            <div class="acciones-tienda">
+                <a href="index.html">Volver al inicio</a>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/mi-tienda.js"></script>
+
+</body>
+</html>

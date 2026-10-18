@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B16">
+
+    <meta name="description" content="Chat de compradores y emprendedores de ALAS DEL EMPRENDIMIENTO.">
+
+    <title>Chat | ALAS DEL EMPRENDIMIENTO</title>
+
+    <!-- Estilos generales y estilos exclusivos del chat -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+
+<body>
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a href="index.html" class="logo">
+    <img
+        src="img/logo.png"
+        alt="Logo de Alas del Emprendimiento"
+        class="logo-imagen"
+    >
+    <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+</a>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="chat-contenedor">
+
+        <a href="index.html" class="chat-volver">
+            ← Volver al inicio
+        </a>
+
+        <section class="chat-caja" aria-label="Conversación">
+
+            <!-- Cabecera del chat -->
+            <header class="chat-cabecera">
+                <h2 id="nombreContacto">💬 Conversación</h2>
+                <p id="estadoChat" role="status" aria-live="polite">
+                    Conectando...
+                </p>
+            </header>
+
+            <!-- Productos relacionados con la conversación -->
+            <section
+                id="informacionProductoChat"
+                class="productos-chat-lista"
+                aria-label="Productos consultados"
+                hidden
+            >
+                <!-- Las tarjetas de productos se crean desde js/chat.js -->
+            </section>
+
+            <!-- Mensajes -->
+            <div
+                id="listaMensajes"
+                class="chat-mensajes"
+                aria-live="polite"
+                aria-relevant="additions"
+                aria-label="Mensajes de la conversación"
+            >
+                <p class="chat-cargando">Cargando mensajes...</p>
+            </div>
+
+            <!-- Acciones de la conversación -->
+            <div class="chat-acciones">
+                <button
+                    type="button"
+                    id="btnVaciarConversacion"
+                    class="btn-secundario"
+                    disabled
+                >
+                    Vaciar conversación
+                </button>
+            </div>
+
+            <!-- Formulario para enviar mensajes -->
+            <form id="formularioChat" class="chat-formulario">
+                <label for="contenidoMensaje" class="chat-etiqueta">
+                    Escribe tu mensaje
+                </label>
+
+                <textarea
+                    id="contenidoMensaje"
+                    name="contenidoMensaje"
+                    rows="2"
+                    maxlength="3000"
+                    placeholder="Escribe tu mensaje..."
+                    aria-label="Escribe tu mensaje"
+                    required
+                    disabled
+                ></textarea>
+
+                <button
+                    type="submit"
+                    id="btnEnviarMensaje"
+                    class="btn-principal"
+                    disabled
+                >
+                    Enviar mensaje
+                </button>
+            </form>
+
+        </section>
+    </main>
+
+    <!-- Supabase y archivos JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B16">
+    <title>Mi cuenta | ALAS DEL EMPRENDIMIENTO</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/cuenta.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a href="index.html" class="logo">
+    <img
+        src="img/logo.png"
+        alt="Logo de Alas del Emprendimiento"
+        class="logo-imagen"
+    >
+    <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+</a>
+
+            <nav class="menu">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#productos">Productos</a>
+                <a href="index.html#tiendas">Tiendas</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="cuenta-pagina contenedor">
+        <section class="cuenta-tarjeta">
+
+            <div class="etiqueta">👤 TU ESPACIO PERSONAL</div>
+
+            <h2>Mi <span class="texto-neon">cuenta</span></h2>
+
+            <p id="estadoCuenta" class="cuenta-estado"
+               role="status" aria-live="polite">
+                Comprobando tu sesión...
+            </p>
+
+            <div id="datosCuenta" class="cuenta-datos" hidden>
+
+                <div class="perfil-resumen">
+                    <div class="perfil-avatar">👤</div>
+                    <div>
+                        <h3>Mi perfil</h3>
+                        <p id="correoCuenta"></p>
+                    </div>
+                </div>
+
+                <a href="mi-tienda.html"
+                   class="btn-secundario cuenta-boton"
+                   style="display:flex; width:100%; box-sizing:border-box; min-height:48px; align-items:center; justify-content:center; text-decoration:none; margin:20px 0;">
+                    🏪 Mi tienda
+                </a>
+
+                <button class="btn-secundario cuenta-boton"
+                        id="btnCerrarSesion" type="button">
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+            <a href="index.html"
+               class="btn-secundario cuenta-boton cuenta-volver">
+                Volver al inicio
+            </a>
+
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const estado = document.getElementById("estadoCuenta");
+            const datos = document.getElementById("datosCuenta");
+            const correo = document.getElementById("correoCuenta");
+            const botonCerrarSesion = document.getElementById("btnCerrarSesion");
+
+            try {
+                if (typeof supabaseClient === "undefined" || !supabaseClient) {
+                    throw new Error("No se pudo conectar con Supabase.");
+                }
+
+                const { data, error } = await supabaseClient.auth.getUser();
+
+                if (error) throw error;
+
+                if (!data.user) {
+                    estado.textContent = "Debes iniciar sesión para ver tu cuenta.";
+                    datos.hidden = true;
+                    return;
+                }
+
+                estado.textContent = "¡Bienvenido a tu cuenta!";
+                correo.textContent = data.user.email || "";
+                datos.hidden = false;
+
+                botonCerrarSesion.addEventListener("click", async () => {
+                    botonCerrarSesion.disabled = true;
+                    estado.textContent = "Cerrando sesión...";
+
+                    try {
+                        const { error } = await supabaseClient.auth.signOut();
+                        if (error) throw error;
+
+                        window.location.href = "index.html";
+                    } catch (error) {
+                        console.error("Error al cerrar sesión:", error);
+                        estado.textContent = "No se pudo cerrar la sesión. Intenta nuevamente.";
+                        botonCerrarSesion.disabled = false;
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error al cargar la cuenta:", error);
+                estado.textContent =
+                    "No se pudo cargar tu cuenta. Intenta iniciar sesión nuevamente.";
+            }
+        });
+    </script>
+
+</body>
+</html>

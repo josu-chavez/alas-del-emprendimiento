@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090b14">
+    <meta name="description" content="Conoce las tiendas y productos de los emprendedores de ALAS DEL EMPRENDIMIENTO.">
+
+    <title>Tienda | ALAS DEL EMPRENDIMIENTO</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/perfil-tienda.css">
+</head>
+
+<body>
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a href="index.html" class="logo">
+    <img
+        src="img/logo.png"
+        alt="Logo de Alas del Emprendimiento"
+        class="logo-imagen"
+    >
+    <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+</a>
+
+            <nav class="menu">
+                <a href="index.html#inicio">Inicio</a>
+                <a href="index.html#categorias">Categorías</a>
+                <a href="index.html#productos">Productos</a>
+                <a href="index.html#tiendas">Tiendas</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="perfil-contenedor">
+        <a href="index.html#tiendas" class="perfil-volver">
+            ← Volver a las tiendas
+        </a>
+
+        <!-- PORTADA, INFORMACIÓN Y VALORACIONES -->
+        <div id="perfilTienda" class="perfil-mensaje">
+            Cargando perfil de la tienda...
+        </div>
+
+        <!-- CATÁLOGO DE PRODUCTOS -->
+        <section class="perfil-productos">
+            <h2 class="titulo-seccion">
+                Nuestro <span class="texto-neon">catálogo de productos</span>
+            </h2>
+
+            <p class="perfil-catalogo-descripcion">
+                Descubre los productos que este emprendimiento tiene para ti.
+            </p>
+
+            <div id="productosTienda" class="perfil-lista-productos"></div>
+        </section>
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="pie-final">
+            © 2026 ALAS DEL EMPRENDIMIENTO. Crecemos juntos, soñamos en grande.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", cargarPerfilTienda);
+
+        async function cargarPerfilTienda() {
+            const contenedor = document.getElementById("perfilTienda");
+            const listaProductos = document.getElementById("productosTienda");
+
+            const tiendaId = new URLSearchParams(
+                window.location.search
+            ).get("id");
+
+            function mostrarError(mensaje) {
+                contenedor.replaceChildren();
+                contenedor.className = "perfil-contenido";
+
+                const aviso = document.createElement("div");
+                aviso.className = "perfil-mensaje";
+                aviso.textContent = mensaje;
+
+                contenedor.appendChild(aviso);
+                listaProductos.replaceChildren();
+            }
+
+            if (!tiendaId) {
+                mostrarError("No se indicó qué tienda quieres visitar.");
+                return;
+            }
+
+            try {
+                if (
+                    typeof supabaseClient === "undefined" ||
+                    !supabaseClient
+                ) {
+                    throw new Error("No se pudo conectar con Supabase.");
+                }
+
+                // =====================================
+                // 1. OBTENER INFORMACIÓN DE LA TIENDA
+                // =====================================
+
+                const {
+                    data: tienda,
+                    error: errorTienda
+                } = await supabaseClient
+                    .from("tiendas")
+                    .select(
+                        "id, usuario_id, nombre, descripcion, categoria, ubicacion, red_social, portada, visitas, calificacion"
+                    )
+                    .eq("id", tiendaId)
+                    .maybeSingle();
+
+                if (errorTienda) throw errorTienda;
+
+                if (!tienda) {
+                    mostrarError(
+                        "Esta tienda no existe o no está disponible."
+                    );
+                    return;
+                }
+
+                // =====================================
+                // 2. REGISTRAR VISITA
+                // =====================================
+
+                let visitasActuales = Number(tienda.visitas || 0);
+
+                const {
+                    data: totalVisitas,
+                    error: errorVisitas
+                } = await supabaseClient.rpc(
+                    "registrar_visita_tienda",
+                    {
+                        p_tienda_id: tienda.id
+                    }
+                );
+
+                if (errorVisitas) {
+                    console.error(
+                        "No se pudo registrar la visita:",
+                        errorVisitas
+                    );
+                } else if (totalVisitas !== null) {
+                    visitasActuales = Number(totalVisitas);
+                }
+
+                // =====================================
+                // 3. CONTENEDOR PRINCIPAL DEL PERFIL
+                // =====================================
+
+                contenedor.replaceChildren();
+                contenedor.className = "perfil-contenido";
+
+                // =====================================
+                // 4. PORTADA DE LA TIENDA
+                // =====================================
+
+                const portada = document.createElement("section");
+                portada.className = "perfil-portada";
+
+                if (tienda.portada) {
+                    const imagenPortada = document.createElement("img");
+
+                    imagenPortada.className = "perfil-portada-imagen";
+                    imagenPortada.src = tienda.portada;
+                    imagenPortada.alt = "Portada de " + tienda.nombre;
+                    imagenPortada.onerror = () => imagenPortada.remove();
+
+                    portada.appendChild(imagenPortada);
+                }
+
+                const textoPortada = document.createElement("div");
+                textoPortada.className = "perfil-portada-texto";
+
+                const nombre = document.createElement("h2");
+                nombre.textContent =
+                    tienda.nombre || "Tienda emprendedora";
+
+                const subtitulo = document.createElement("p");
+                subtitulo.textContent =
+                    "Descubre nuestros productos y conoce nuestro emprendimiento.";
+
+                textoPortada.append(nombre, subtitulo);
+                portada.appendChild(textoPortada);
+                contenedor.appendChild(portada);
+
+                // =====================================
+                // 5. FILA DE INFORMACIÓN Y VALORACIONES
+                // =====================================
+
+                const filaInformacion = document.createElement("div");
+                filaInformacion.className = "perfil-fila-informacion";
+
+                // Panel izquierdo: Sobre nosotros.
+                const informacion = document.createElement("section");
+                informacion.className =
+                    "perfil-informacion perfil-panel-tienda";
+
+                const tituloInfo = document.createElement("h2");
+                tituloInfo.textContent = "Sobre nosotros";
+
+                informacion.appendChild(tituloInfo);
+
+                // Visitas del perfil.
+                const contadorVisitas = document.createElement("p");
+                contadorVisitas.className = "perfil-contador-visitas";
+                contadorVisitas.textContent =
+                    "👁️ " +
+                    visitasActuales.toLocaleString("es-BO") +
+                    " visitas al perfil";
+
+                informacion.appendChild(contadorVisitas);
+
+                // Descripción.
+                const descripcion = document.createElement("p");
+                descripcion.className = "perfil-descripcion";
+                descripcion.textContent =
+                    tienda.descripcion ||
+                    "Este emprendimiento todavía no agregó una descripción.";
+
+                informacion.appendChild(descripcion);
+
+                // Categoría.
+                if (tienda.categoria) {
+                    const categoria = document.createElement("p");
+                    categoria.className = "perfil-dato-tienda";
+                    categoria.textContent =
+                        "🏷️ Categoría: " + tienda.categoria;
+
+                    informacion.appendChild(categoria);
+                }
+
+                // Ubicación.
+                if (tienda.ubicacion) {
+                    const ubicacion = document.createElement("p");
+                    ubicacion.className = "perfil-dato-tienda";
+                    ubicacion.textContent = "📍 " + tienda.ubicacion;
+
+                    informacion.appendChild(ubicacion);
+                }
+
+                // Red social.
+                if (tienda.red_social) {
+                    const redes = document.createElement("p");
+                    redes.className = "perfil-dato-tienda";
+                    redes.textContent =
+                        "🔗 Red social: " + tienda.red_social;
+
+                    informacion.appendChild(redes);
+                }
+
+                filaInformacion.appendChild(informacion);
+
+                // Panel derecho: Valoraciones.
+                const seccionValoraciones =
+                    document.createElement("section");
+
+                seccionValoraciones.className =
+                    "perfil-informacion perfil-panel-tienda perfil-panel-valoraciones";
+
+                const tituloValoraciones = document.createElement("h2");
+                tituloValoraciones.textContent =
+                    "Valoraciones de la tienda";
+
+                seccionValoraciones.appendChild(tituloValoraciones);
+
+                const resumenValoraciones = document.createElement("p");
+                resumenValoraciones.className =
+                    "perfil-resumen-valoraciones";
+                resumenValoraciones.textContent =
+                    "Cargando valoraciones...";
+
+                seccionValoraciones.appendChild(resumenValoraciones);
+
+                const estrellas = document.createElement("div");
+                estrellas.className = "perfil-estrellas";
+
+                const mensajeValoracion = document.createElement("p");
+                mensajeValoracion.className =
+                    "perfil-mensaje-valoracion";
+                mensajeValoracion.setAttribute("role", "status");
+                mensajeValoracion.setAttribute("aria-live", "polite");
+
+                seccionValoraciones.append(
+                    estrellas,
+                    mensajeValoracion
+                );
+
+                filaInformacion.appendChild(seccionValoraciones);
+                contenedor.appendChild(filaInformacion);
+
+                // =====================================
+                // 6. CONSULTAR USUARIO ACTUAL
+                // =====================================
+
+                const {
+                    data: datosUsuario,
+                    error: errorUsuario
+                } = await supabaseClient.auth.getUser();
+
+                if (errorUsuario) {
+                    console.error(
+                        "Error al consultar usuario:",
+                        errorUsuario
+                    );
+                }
+
+                const usuario = datosUsuario?.user || null;
+
+                // =====================================
+                // 7. CARGAR RESUMEN DE VALORACIONES
+                // =====================================
+
+                const {
+                    data: puntuaciones,
+                    error: errorPuntuaciones
+                } = await supabaseClient
+                    .from("valoraciones_tiendas")
+                    .select("puntuacion")
+                    .eq("tienda_id", tienda.id);
+
+                if (errorPuntuaciones) {
+                    console.error(
+                        "Error al cargar valoraciones:",
+                        errorPuntuaciones
+                    );
+
+                    resumenValoraciones.textContent =
+                        "No se pudieron cargar las valoraciones.";
+                } else {
+                    mostrarResumen(puntuaciones || []);
+                }
+
+                function mostrarResumen(lista) {
+                    const cantidad = lista.length;
+
+                    const promedio = cantidad
+                        ? lista.reduce(
+                            (suma, item) =>
+                                suma + Number(item.puntuacion),
+                            0
+                        ) / cantidad
+                        : 0;
+
+                    resumenValoraciones.textContent = cantidad
+                        ? "⭐ " + promedio.toFixed(1) + "/5 · " +
+                            cantidad +
+                            (cantidad === 1
+                                ? " valoración"
+                                : " valoraciones")
+                        : "Aún no hay valoraciones";
+                }
+
+                // =====================================
+                // 8. CREAR ESTRELLAS INTERACTIVAS
+                // =====================================
+
+                const botonesEstrellas = [];
+
+                for (let numero = 1; numero <= 5; numero++) {
+                    const botonEstrella =
+                        document.createElement("button");
+
+                    botonEstrella.type = "button";
+                    botonEstrella.className = "perfil-boton-estrella";
+                    botonEstrella.textContent = "★";
+
+                    botonEstrella.setAttribute(
+                        "aria-label",
+                        numero +
+                        (numero === 1 ? " estrella" : " estrellas")
+                    );
+
+                    botonEstrella.addEventListener(
+                        "click",
+                        async () => {
+                            if (!usuario) {
+                                mensajeValoracion.textContent =
+                                    "Inicia sesión para valorar esta tienda.";
+                                return;
+                            }
+
+                            if (usuario.id === tienda.usuario_id) {
+                                mensajeValoracion.textContent =
+                                    "No puedes valorar tu propia tienda.";
+                                return;
+                            }
+
+                            botonesEstrellas.forEach(boton => {
+                                boton.disabled = true;
+                            });
+
+                            mensajeValoracion.textContent =
+                                "Guardando tu valoración...";
+
+                            try {
+                                const {
+                                    error: errorGuardar
+                                } = await supabaseClient
+                                    .from("valoraciones_tiendas")
+                                    .insert({
+                                        tienda_id: tienda.id,
+                                        usuario_id: usuario.id,
+                                        puntuacion: numero
+                                    });
+
+                                if (errorGuardar) {
+                                    console.error(
+                                        "Error al guardar valoración:",
+                                        errorGuardar
+                                    );
+
+                                    if (errorGuardar.code === "23505") {
+                                        mensajeValoracion.textContent =
+                                            "Ya has valorado esta tienda.";
+                                    } else if (
+                                        errorGuardar.code === "42501"
+                                    ) {
+                                        mensajeValoracion.textContent =
+                                            "No tienes permiso para valorar esta tienda.";
+                                    } else {
+                                        mensajeValoracion.textContent =
+                                            "No se pudo guardar la valoración. Inténtalo nuevamente.";
+                                    }
+
+                                    botonesEstrellas.forEach(boton => {
+                                        boton.disabled = false;
+                                    });
+
+                                    return;
+                                }
+
+                                const {
+                                    data: nuevasPuntuaciones,
+                                    error: errorRecarga
+                                } = await supabaseClient
+                                    .from("valoraciones_tiendas")
+                                    .select("puntuacion")
+                                    .eq("tienda_id", tienda.id);
+
+                                if (!errorRecarga) {
+                                    mostrarResumen(
+                                        nuevasPuntuaciones || []
+                                    );
+                                }
+
+                                mensajeValoracion.textContent =
+                                    "¡Gracias por valorar esta tienda!";
+
+                                botonesEstrellas.forEach(
+                                    (boton, indice) => {
+                                        boton.disabled = true;
+                                        boton.style.cursor = "default";
+                                        boton.style.opacity =
+                                            indice < numero
+                                                ? "1"
+                                                : "0.45";
+                                    }
+                                );
+                            } catch (error) {
+                                console.error(
+                                    "Error inesperado al valorar:",
+                                    error
+                                );
+
+                                mensajeValoracion.textContent =
+                                    "Ocurrió un error. Inténtalo nuevamente.";
+
+                                botonesEstrellas.forEach(boton => {
+                                    boton.disabled = false;
+                                });
+                            }
+                        }
+                    );
+
+                    botonesEstrellas.push(botonEstrella);
+                    estrellas.appendChild(botonEstrella);
+                }
+
+                // Comprobar si el usuario puede valorar.
+                if (!usuario) {
+                    mensajeValoracion.textContent =
+                        "Inicia sesión para dejar tu valoración.";
+                } else if (usuario.id === tienda.usuario_id) {
+                    mensajeValoracion.textContent =
+                        "Esta es tu tienda. No puedes valorarla.";
+
+                    botonesEstrellas.forEach(boton => {
+                        boton.disabled = true;
+                    });
+                } else {
+                    const {
+                        data: valoracionExistente,
+                        error: errorExistente
+                    } = await supabaseClient
+                        .from("valoraciones_tiendas")
+                        .select("puntuacion")
+                        .eq("tienda_id", tienda.id)
+                        .eq("usuario_id", usuario.id)
+                        .maybeSingle();
+
+                    if (errorExistente) {
+                        console.error(
+                            "Error al consultar tu valoración:",
+                            errorExistente
+                        );
+                    }
+
+                    if (valoracionExistente) {
+                        mensajeValoracion.textContent =
+                            "Ya has valorado esta tienda con " +
+                            valoracionExistente.puntuacion +
+                            " estrellas.";
+
+                        botonesEstrellas.forEach(
+                            (boton, indice) => {
+                                boton.disabled = true;
+                                boton.style.cursor = "default";
+                                boton.style.opacity =
+                                    indice <
+                                    valoracionExistente.puntuacion
+                                        ? "1"
+                                        : "0.45";
+                            }
+                        );
+                    } else {
+                        mensajeValoracion.textContent =
+                            "Selecciona de 1 a 5 estrellas para valorar.";
+                    }
+                }
+
+                // =====================================
+                // 9. CARGAR PRODUCTOS DE LA TIENDA
+                // =====================================
+
+                const {
+                    data: productos,
+                    error: errorProductos
+                } = await supabaseClient
+                    .from("productos")
+                    .select(
+                        "id, nombre, precio, cantidad, categoria, imagen"
+                    )
+                    .eq("tienda_id", tienda.id)
+                    .order("creado_en", { ascending: false });
+
+                if (errorProductos) throw errorProductos;
+
+                listaProductos.replaceChildren();
+
+                if (!productos || productos.length === 0) {
+                    const mensaje = document.createElement("p");
+                    mensaje.className = "perfil-mensaje";
+                    mensaje.textContent =
+                        "Esta tienda todavía no ha publicado productos.";
+
+                    listaProductos.appendChild(mensaje);
+                    return;
+                }
+
+                // Crear cada tarjeta de producto.
+                productos.forEach(producto => {
+                    const tarjeta = document.createElement("article");
+                    tarjeta.className = "perfil-producto";
+
+                    if (producto.imagen) {
+                        const imagen = document.createElement("img");
+
+                        imagen.className = "perfil-producto-imagen";
+                        imagen.src = producto.imagen;
+                        imagen.alt = producto.nombre || "Producto";
+                        imagen.loading = "lazy";
+
+                        imagen.onerror = () => {
+                            imagen.replaceWith(crearImagenVacia());
+                        };
+
+                        tarjeta.appendChild(imagen);
+                    } else {
+                        tarjeta.appendChild(crearImagenVacia());
+                    }
+
+                    const informacionProducto =
+                        document.createElement("div");
+
+                    informacionProducto.className =
+                        "perfil-producto-info";
+
+                    const nombreProducto =
+                        document.createElement("h3");
+
+                    nombreProducto.textContent =
+                        producto.nombre || "Producto sin nombre";
+
+                    informacionProducto.appendChild(nombreProducto);
+
+                    const precio = document.createElement("p");
+                    precio.className = "perfil-producto-precio";
+
+                    precio.textContent =
+                        "Bs " +
+                        Number(producto.precio).toLocaleString(
+                            "es-BO",
+                            {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            }
+                        );
+
+                    informacionProducto.appendChild(precio);
+
+                    const stock = document.createElement("p");
+                    const disponible = Number(producto.cantidad) > 0;
+
+                    stock.className = disponible
+                        ? "perfil-stock disponible"
+                        : "perfil-stock agotado";
+
+                    stock.textContent = disponible
+                        ? "✓ Disponible"
+                        : "Agotado";
+
+                    informacionProducto.appendChild(stock);
+
+                    const boton = document.createElement("button");
+                    boton.type = "button";
+                    boton.className = "btn-principal";
+                    boton.textContent = "Ver producto";
+
+                    boton.addEventListener("click", () => {
+                        const parametros = new URLSearchParams({
+                            id: producto.id
+                        });
+
+                        window.location.href =
+                            "detalle-producto.html?" +
+                            parametros.toString();
+                    });
+
+                    informacionProducto.appendChild(boton);
+                    tarjeta.appendChild(informacionProducto);
+                    listaProductos.appendChild(tarjeta);
+                });
+
+                function crearImagenVacia() {
+                    const imagenVacia =
+                        document.createElement("div");
+
+                    imagenVacia.className =
+                        "perfil-producto-imagen perfil-producto-sin-imagen";
+
+                    imagenVacia.textContent = "📦";
+                    imagenVacia.setAttribute(
+                        "aria-label",
+                        "Producto sin imagen"
+                    );
+
+                    return imagenVacia;
+                }
+
+            } catch (error) {
+                console.error(
+                    "Error al cargar el perfil:",
+                    error
+                );
+
+                mostrarError(
+                    "No se pudo cargar el perfil. Comprueba tu conexión e inténtalo nuevamente."
+                );
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B16">
+    <meta name="description" content="Conoce los detalles de este producto en Alas del Emprendimiento.">
+
+    <title>Detalle del producto | ALAS DEL EMPRENDIMIENTO</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/detalle-producto.css">
+
+    
+</head>
+
+<body>
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a href="index.html" class="logo">
+    <img
+        src="img/logo.png"
+        alt="Logo de Alas del Emprendimiento"
+        class="logo-imagen"
+    >
+    <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+</a>
+
+            <nav class="menu">
+                <a href="index.html#inicio">Inicio</a>
+                <a href="index.html#categorias">Categorías</a>
+                <a href="index.html#productos">Productos</a>
+                <a href="index.html#tiendas">Tiendas</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="detalle-contenedor">
+        <a class="detalle-volver" href="index.html#productos">
+            ← Volver a los productos
+        </a>
+
+        <div id="detalleProducto" class="detalle-mensaje">
+            Cargando información del producto...
+        </div>
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="pie-final">
+            © 2026 ALAS DEL EMPRENDIMIENTO. Crecemos juntos, soñamos en grande.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", cargarDetalleProducto);
+
+        async function cargarDetalleProducto() {
+            const contenedor = document.getElementById("detalleProducto");
+            const parametros = new URLSearchParams(window.location.search);
+            const productoId = parametros.get("id");
+
+            if (!productoId) {
+                mostrarError("No se indicó qué producto quieres consultar.");
+                return;
+            }
+
+            try {
+                if (typeof supabaseClient === "undefined" || !supabaseClient) {
+                    throw new Error("No se pudo conectar con el catálogo.");
+                }
+
+                const { data: producto, error } = await supabaseClient
+                    .from("productos")
+                    .select(`
+                        id,
+                        nombre,
+                        precio,
+                        cantidad,
+                        categoria,
+                        descripcion,
+                        imagen,
+                        tienda_id,
+                        tiendas (
+                            id,
+                            nombre,
+                            descripcion,
+                            categoria,
+                            ubicacion,
+                            portada
+                        )
+                    `)
+                    .eq("id", productoId)
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (!producto) {
+                    mostrarError("Este producto no existe o ya no está disponible.");
+                    return;
+                }
+
+                contenedor.replaceChildren();
+
+                const tarjeta = document.createElement("article");
+                tarjeta.className = "detalle-tarjeta";
+
+                const zonaImagen = document.createElement("div");
+                zonaImagen.className = "detalle-fotografia";
+
+                if (producto.imagen) {
+                    const imagen = document.createElement("img");
+                    imagen.src = producto.imagen;
+                    imagen.alt = producto.nombre;
+                    imagen.onerror = () => {
+                        zonaImagen.replaceChildren();
+                        const icono = document.createElement("span");
+                        icono.className = "detalle-sin-foto";
+                        icono.textContent = "📦";
+                        zonaImagen.appendChild(icono);
+                    };
+                    zonaImagen.appendChild(imagen);
+                } else {
+                    const icono = document.createElement("span");
+                    icono.className = "detalle-sin-foto";
+                    icono.textContent = "📦";
+                    zonaImagen.appendChild(icono);
+                }
+
+                const informacion = document.createElement("div");
+                informacion.className = "detalle-informacion";
+
+                const titulo = document.createElement("h1");
+                titulo.textContent = producto.nombre;
+                informacion.appendChild(titulo);
+
+                const precio = document.createElement("p");
+                precio.className = "detalle-precio";
+                precio.textContent = "Bs " + Number(producto.precio).toLocaleString(
+                    "es-BO",
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+                );
+                informacion.appendChild(precio);
+
+                const categoria = document.createElement("p");
+                categoria.className = "detalle-etiqueta";
+                categoria.textContent = producto.categoria || "Otros";
+                informacion.appendChild(categoria);
+
+                const descripcion = document.createElement("p");
+                descripcion.textContent =
+                    producto.descripcion || "El vendedor no agregó una descripción.";
+                informacion.appendChild(descripcion);
+
+                const stock = document.createElement("p");
+                stock.textContent = Number(producto.cantidad) > 0
+                    ? "Disponibilidad: " + producto.cantidad + " unidades"
+                    : "Producto agotado";
+                informacion.appendChild(stock);
+
+                const tienda = producto.tiendas;
+                const zonaTienda = document.createElement("section");
+                zonaTienda.className = "detalle-tienda";
+
+                const tituloTienda = document.createElement("h2");
+                tituloTienda.textContent = "Sobre la tienda";
+                zonaTienda.appendChild(tituloTienda);
+
+                const nombreTienda = document.createElement("p");
+                nombreTienda.textContent = tienda?.nombre || "Tienda emprendedora";
+                zonaTienda.appendChild(nombreTienda);
+
+                if (tienda?.descripcion) {
+                    const descripcionTienda = document.createElement("p");
+                    descripcionTienda.textContent = tienda.descripcion;
+                    zonaTienda.appendChild(descripcionTienda);
+                }
+
+                if (tienda?.ubicacion) {
+                    const ubicacion = document.createElement("p");
+                    ubicacion.textContent = "📍 " + tienda.ubicacion;
+                    zonaTienda.appendChild(ubicacion);
+                }
+
+                informacion.appendChild(zonaTienda);
+
+                
+                 const botonVisitarTienda = document.createElement("a");
+                 botonVisitarTienda.className = "btn-principal";
+                 botonVisitarTienda.style.display = "inline-block";
+                 botonVisitarTienda.style.textDecoration = "none";
+                 botonVisitarTienda.textContent = "Visitar tienda";
+
+                botonVisitarTienda.href =
+                  "perfil-tienda.html?" +
+                  new URLSearchParams({ id: producto.tienda_id }).toString();
+
+                 informacion.appendChild(botonVisitarTienda);
+
+                 // Botón para contactar al vendedor
+const botonContactar = document.createElement("button");
+botonContactar.type = "button";
+botonContactar.className = "btn-principal";
+botonContactar.textContent = "💬 Contactar al vendedor";
+botonContactar.style.display = "block";
+botonContactar.style.marginTop = "15px";
+botonContactar.style.cursor = "pointer";
+
+botonContactar.addEventListener("click", async () => {
+    botonContactar.disabled = true;
+    botonContactar.textContent = "Conectando con el vendedor...";
+
+    try {
+        const { data: sesionData, error: errorSesion } =
+            await supabaseClient.auth.getUser();
+
+        if (errorSesion) throw errorSesion;
+
+        const usuario = sesionData.user;
+
+        if (!usuario) {
+            window.location.href =
+                "login.html?redirigir=" +
+                encodeURIComponent(
+                    "detalle-producto.html?id=" + producto.id
+                );
+            return;
+        }
+
+        const { data: conversacionId, error } =
+            await supabaseClient.rpc("iniciar_chat_producto", {
+                p_producto_id: producto.id
+            });
+
+        if (error) throw error;
+
+        if (!conversacionId) {
+            throw new Error("No se recibió el identificador del chat.");
+        }
+
+        
+        const parametrosChat = new URLSearchParams({
+        id: conversacionId,
+        producto: producto.id
+});
+
+window.location.href = "chat.html?" + parametrosChat.toString();
+
+
+    } catch (error) {
+    console.error("Error al iniciar el chat:", error);
+    console.error("Mensaje:", error?.message);
+    console.error("Código:", error?.code);
+    console.error("Detalles:", error?.details);
+    console.error("Sugerencia:", error?.hint);
+    console.error("Error completo:", JSON.stringify(error, null, 2));
+
+    alert(
+        "No se pudo iniciar el chat.\n" +
+        (error?.message || "Revisa la consola del navegador.")
+    );
+
+    botonContactar.disabled = false;
+    botonContactar.textContent = "💬 Contactar al vendedor";
+}
+});
+
+informacion.appendChild(botonContactar);
+
+
+                tarjeta.appendChild(zonaImagen);
+                tarjeta.appendChild(informacion);
+                contenedor.appendChild(tarjeta);
+
+            } catch (error) {
+                console.error("Error al cargar el detalle:", error);
+                mostrarError("No se pudo cargar el producto. Intenta nuevamente.");
+            }
+
+            function mostrarError(texto) {
+                contenedor.replaceChildren();
+                const mensaje = document.createElement("p");
+                mensaje.className = "detalle-mensaje";
+                mensaje.textContent = texto;
+                contenedor.appendChild(mensaje);
+            }
+        }
+    </script>
+</body>
+</html>

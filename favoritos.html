@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B16">
+    <title>Mis favoritos | ALAS DEL EMPRENDIMIENTO</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/productos.css">
+
+    <style>
+        .pagina-favoritos {
+            width: min(1100px, 92%);
+            margin: 50px auto;
+            min-height: 60vh;
+        }
+
+        .favoritos-encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .favoritos-encabezado h2 {
+            margin: 0;
+        }
+
+        .favoritos-mensaje {
+            padding: 30px 15px;
+            text-align: center;
+        }
+
+        .favoritos-mensaje a {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        #listaFavoritos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .btn-quitar-favorito {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border: 1px solid #ff6b81;
+            border-radius: 10px;
+            background: transparent;
+            color: #ff6b81;
+            cursor: pointer;
+        }
+
+        .btn-quitar-favorito:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a href="index.html" class="logo">
+    <img
+        src="img/logo.png"
+        alt="Logo de Alas del Emprendimiento"
+        class="logo-imagen"
+    >
+    <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+</a>
+
+            <nav class="menu">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#categorias">Categorías</a>
+                <a href="index.html#productos">Productos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pagina-favoritos">
+        <div class="favoritos-encabezado">
+            <h2 class="titulo-seccion">
+                Mis <span class="texto-neon">favoritos</span> ❤️
+            </h2>
+
+            <a href="index.html#productos" class="btn-secundario">
+                ← Seguir explorando
+            </a>
+        </div>
+
+        <p id="mensajeFavoritos" class="favoritos-mensaje">
+            Cargando tus favoritos...
+        </p>
+
+        <div id="listaFavoritos" class="lista-productos"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/favoritos-pagina.js"></script>
+</body>
+</html>

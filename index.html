@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B16">
+    <meta name="description" content="Descubre productos únicos y apoya a los emprendedores en Alas del Emprendimiento.">
+    <title>ALAS DEL EMPRENDIMIENTO</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/registro.css">
+    <link rel="stylesheet" href="css/portada-tienda.css">
+    <link rel="stylesheet" href="css/cuenta.css">
+    <link rel="stylesheet" href="css/productos.css">
+    <link rel="stylesheet" href="css/favoritos.css">
+</head>
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            
+             <a href="#inicio" class="logo">
+               <img
+                src="img/logo.png"
+                alt="Logo de Alas del Emprendimiento"
+                class="logo-imagen"
+                >
+               <h1>ALAS DEL <span>EMPRENDIMIENTO</span></h1>
+             </a>
+
+
+            <nav class="menu">
+                <a href="#inicio">Inicio</a>
+                <a href="#categorias">Categorías</a>
+                <a href="#productos">Productos</a>
+                <a href="#tiendas">Tiendas</a>
+                <a href="#vender">Vender</a>
+            </nav>
+
+            <div class="encabezado-acciones">
+                <button class="btn-favoritos" id="btnFavoritos" type="button">
+                    ♡ <span id="contadorFavoritos">0</span>
+                </button>
+                <button class="btn-cuenta" id="btnCuenta" type="button">
+                    👤 Cuenta
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- PORTADA -->
+        <section class="hero" id="inicio">
+            <div class="hero-contenido">
+                <div class="hero-texto">
+                    <div class="etiqueta">
+                        ✨ UNIDOS POR LOS SUEÑOS
+                    </div>
+
+                    <h2>
+                        Tus sueños<br>
+                        merecen <span>volar.</span>
+                    </h2>
+
+                    <p>
+                        En ALAS DEL EMPRENDIMIENTO creemos que detrás de
+                        cada negocio hay un sueño, una familia y muchas
+                        ganas de salir adelante. Descubre productos únicos
+                        y apoya a los emprendedores que trabajan cada día
+                        para construir un futuro mejor.
+                    </p>
+
+                    <form class="form-busqueda" id="formBusqueda">
+                        <input
+                            type="search"
+                            id="busqueda"
+                            placeholder="¿Qué producto estás buscando?"
+                            aria-label="Buscar productos"
+                        >
+                        <button class="btn-principal" type="submit">
+                            🔍 Buscar
+                        </button>
+                    </form>
+
+                    <div class="hero-botones" style="margin-top: 18px;">
+                        <a href="#productos" class="btn-principal">
+                            Explorar productos →
+                        </a>
+                        <a href="#vender" class="btn-secundario">
+                            Quiero emprender
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-imagen">
+                    <div class="hero-tarjeta">
+                        <strong>💜 Sueños que crecen</strong>
+                        <span>Apoyamos el talento emprendedor.</span>
+                    </div>
+
+                    <div class="hero-tarjeta">
+                        <strong>⚡ Nuevas oportunidades</strong>
+                        <span>Productos para descubrir.</span>
+                    </div>
+
+                    <div class="hero-tarjeta">
+                        <strong>🤝 Una comunidad unida</strong>
+                        <span>Crecemos juntos, soñamos en grande.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section class="seccion-categorias" id="categorias">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">
+                    Explora nuestras <span class="texto-neon">categorías</span>
+                </h2>
+                <p class="subtitulo-seccion">
+                    Encuentra eso que buscas y descubre nuevos emprendimientos.
+                </p>
+
+                <div class="categorias">
+                    <button class="categoria" data-categoria="Ropa" type="button">
+                        <div class="categoria-icono">👕</div>
+                        <span>Ropa</span>
+                    </button>
+
+                    <button class="categoria" data-categoria="Tecnología" type="button">
+                        <div class="categoria-icono">📱</div>
+                        <span>Tecnología</span>
+                    </button>
+
+                    <button class="categoria" data-categoria="Calzados" type="button">
+                        <div class="categoria-icono">👟</div>
+                        <span>Calzados</span>
+                    </button>
+
+                    <button class="categoria" data-categoria="Hogar" type="button">
+                        <div class="categoria-icono">🏠</div>
+                        <span>Hogar</span>
+                    </button>
+
+                    <button class="categoria" data-categoria="Belleza" type="button">
+                        <div class="categoria-icono">✨</div>
+                        <span>Belleza</span>
+                    </button>
+
+                    <button class="categoria" data-categoria="Juguetes" type="button">
+                        <div class="categoria-icono">🎮</div>
+                        <span>Juguetes</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS -->
+        <section class="seccion-productos" id="productos">
+            <div class="contenedor">
+                <div class="productos-encabezado">
+                    <div>
+                        <h2 class="titulo-seccion">
+                            Productos que <span class="texto-neon">te encantarán</span>
+                        </h2>
+                        <p class="subtitulo-seccion">
+                            Cada producto tiene una historia detrás.
+                            ¡Descubre tu próximo favorito!
+                        </p>
+                    </div>
+
+                    <select id="ordenProductos" aria-label="Ordenar productos">
+                        <option value="recomendados">Orden recomendado</option>
+                        <option value="menor-precio">Precio: menor a mayor</option>
+                        <option value="mayor-precio">Precio: mayor a menor</option>
+                        <option value="nombre">Nombre: A-Z</option>
+                    </select>
+                </div>
+
+                <div class="filtros" id="filtrosProductos">
+                    <button class="filtro activo" data-filtro="Todos" type="button">Todos</button>
+                    <button class="filtro" data-filtro="Tecnología" type="button">Tecnología</button>
+                    <button class="filtro" data-filtro="Ropa" type="button">Ropa</button>
+                    <button class="filtro" data-filtro="Calzados" type="button">Calzados</button>
+                    <button class="filtro" data-filtro="Hogar" type="button">Hogar</button>
+                    <button class="filtro" data-filtro="Belleza" type="button">Belleza</button>
+                    <button class="filtro" data-filtro="Juguetes" type="button">Juguetes</button>
+                </div>
+
+                <div id="listaProductos" class="lista-productos"></div>
+
+                <p id="sinResultados" hidden>
+                    No encontramos productos con esos criterios.
+                    Prueba con otra búsqueda o categoría.
+                </p>
+            </div>
+        </section>
+
+        <!-- TIENDAS -->
+        <section class="seccion-tiendas" id="tiendas">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">
+                    Emprendedores que merecen <span class="texto-neon">brillar</span>
+                </h2>
+                <p class="subtitulo-seccion">
+                    Detrás de cada tienda hay personas que luchan por sus sueños.
+                </p>
+
+                <div id="listaTiendasRecomendadas" class="lista-tiendas">
+                <p class="mensaje-tiendas">Cargando tiendas...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENDER -->
+        <section class="seccion-vender" id="vender">
+            <div class="contenedor">
+                <div class="vender-contenido">
+                    <div class="etiqueta">🚀 TU HISTORIA TAMBIÉN IMPORTA</div>
+
+                    <h2>
+                        Tus sueños pueden llegar más lejos.
+                    </h2>
+
+                    <p>
+                        ¿Tienes un emprendimiento? Este puede ser el comienzo
+                        de algo grande. Comparte tus productos, da a conocer
+                        tu talento y conecta con personas que valoran tu trabajo.
+                    </p>
+
+                    <button class="btn-principal" id="btnCrearTienda" type="button">
+                        Quiero dar a conocer mi negocio →
+                    </button>
+                    
+                    <button class="btn-secundario" id="btnPublicarProducto" type="button">
+                        ＋ Publicar producto
+                    </button>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="pie-pagina">
+        <div class="pie-contenido">
+            <div>
+                <h3>🪽 ALAS DEL EMPRENDIMIENTO</h3>
+                <p>Unidos por los sueños, conectados por las oportunidades.</p>
+            </div>
+
+            <div class="pie-enlaces">
+                <a href="#inicio">Inicio</a>
+                <a href="#categorias">Categorías</a>
+                <a href="#productos">Productos</a>
+                <a href="#vender">Vender</a>
+                <button id="btnCuentaFooter" class="btn-secundario" type="button">
+                    Mi cuenta
+                </button>
+                <a href="#sugerencias" id="enlaceSugerencias">Sugerencias</a>
+            </div>
+        </div>
+
+        <div class="pie-final">
+            © 2026 ALAS DEL EMPRENDIMIENTO. Crecemos juntos, soñamos en grande.
+        </div>
+    </footer>
+
+    <!-- AVISOS -->
+    <div id="aviso" class="aviso" role="status" aria-live="polite" hidden></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/registro.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/portada-tienda.js"></script>
+    <script src="js/tienda.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/favoritos.js"></script>
+</body>
+</html>
