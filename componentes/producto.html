@@ -1,0 +1,104 @@
+
+<div class="modal-contenido formulario-producto" role="dialog"
+     aria-modal="true" aria-labelledby="tituloProducto">
+
+    <button id="cerrarProducto" class="modal-cerrar"
+            type="button" aria-label="Cerrar ventana">
+        ✕
+    </button>
+
+    <div class="etiqueta">🪽 HAZ CRECER TU EMPRENDIMIENTO</div>
+
+    <h2 id="tituloProducto">
+        Publica tu <span class="texto-neon">producto</span>
+    </h2>
+
+    <p>Comparte lo que vendes con nuestra comunidad.</p>
+
+    <form id="formularioProducto">
+
+        <label for="nombreProducto">Nombre del producto</label>
+        <input
+            id="nombreProducto"
+            name="nombre"
+            type="text"
+            maxlength="120"
+            placeholder="Ej. Audífonos inalámbricos"
+            required
+        >
+
+        <label for="precioProducto">Precio (Bs)</label>
+        <input
+            id="precioProducto"
+            name="precio"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Ej. 150"
+            required
+        >
+
+        <label for="cantidadProducto">Cantidad disponible</label>
+        <input
+            id="cantidadProducto"
+            name="cantidad"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+            required
+        >
+
+        <label for="categoriaProducto">Categoría</label>
+        <select id="categoriaProducto" name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Calzados">Calzados</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Belleza">Belleza</option>
+            <option value="Juguetes">Juguetes</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Otros">Otros</option>
+        </select>
+
+        <label for="descripcionProducto">Descripción</label>
+        <textarea
+            id="descripcionProducto"
+            name="descripcion"
+            rows="4"
+            maxlength="1500"
+            placeholder="Describe el producto, sus características y estado."
+        ></textarea>
+
+        <label for="imagenProducto">Fotografía del producto</label>
+        <p class="ayuda-portada">
+            Elige una imagen JPG, PNG o WebP de máximo 5 MB.
+        </p>
+
+        <input
+            id="imagenProducto"
+            name="imagen"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+        <img
+            id="vistaPreviaProducto"
+            alt="Vista previa del producto"
+            hidden
+            style="width:100%;max-height:260px;object-fit:contain;margin-top:12px;border-radius:12px;"
+        >
+
+        <button id="btnGuardarProducto"
+                class="btn-principal"
+                type="submit">
+            Publicar producto
+        </button>
+
+        <p id="mensajeProducto"
+           role="status"
+           aria-live="polite"></p>
+
+    </form>
+</div>

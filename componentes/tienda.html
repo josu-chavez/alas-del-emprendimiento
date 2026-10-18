@@ -1,0 +1,120 @@
+
+<div class="modal-contenido" role="dialog"
+     aria-modal="true" aria-labelledby="tituloTienda">
+
+    <button id="cerrarTienda" class="modal-cerrar"
+            type="button" aria-label="Cerrar ventana">
+        ✕
+    </button>
+
+    <div class="etiqueta">🪽 TU NEGOCIO EN NUESTRA COMUNIDAD</div>
+
+    <h2 id="tituloTienda">
+    Crea tu <span class="texto-neon">tienda</span>
+    </h2>
+
+    <p id="subtituloTienda">
+    Comparte tu negocio y empieza a mostrar tus productos.
+    </p>
+
+    <form id="formularioTienda">
+
+        <label for="nombreTienda">Nombre de la tienda</label>
+        <input
+            id="nombreTienda"
+            name="nombre"
+            type="text"
+            required
+            maxlength="100"
+            placeholder="Ej. Tecnología El Alto"
+        >
+
+        <label for="descripcionTienda">Descripción</label>
+        <textarea
+            id="descripcionTienda"
+            name="descripcion"
+            rows="3"
+            required
+            maxlength="1000"
+            placeholder="Describe tu negocio"
+        ></textarea>
+
+        <label for="categoriaTienda">Categoría</label>
+        <select id="categoriaTienda" name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Juguetes">Juguetes</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Otros">Otros</option>
+        </select>
+
+        <label for="ubicacionTienda">Ubicación</label>
+        <input
+            id="ubicacionTienda"
+            name="ubicacion"
+            type="text"
+            required
+            maxlength="150"
+            placeholder="Ej. El Alto, La Paz"
+        >
+
+        <label for="redSocialTienda">Red social (opcional)</label>
+        <input
+            id="redSocialTienda"
+            name="red_social"
+            type="text"
+            maxlength="200"
+            placeholder="Enlace a tu página o perfil"
+        >
+
+        <!-- PORTADA DE LA TIENDA -->
+        <div class="grupo-portada">
+
+            <label for="portadaTienda">Portada de tu tienda</label>
+
+            <p class="ayuda-portada">
+                Elige una imagen que represente tu negocio.
+                Formatos JPG, PNG o WebP. Máximo 5 MB.
+            </p>
+
+            <label for="portadaTienda" class="zona-portada">
+                <span class="icono-portada">＋</span>
+                <span class="texto-zona-portada">
+                    Seleccionar imagen
+                </span>
+                <span class="detalle-portada">
+                    Haz clic aquí para elegir tu portada
+                </span>
+            </label>
+
+            <input
+                id="portadaTienda"
+                name="portada"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <img
+                id="vistaPreviaPortada"
+                class="vista-previa-portada"
+                alt="Vista previa de la portada de tu tienda"
+                hidden
+            >
+
+        </div>
+        <!-- FIN DE LA PORTADA -->
+
+        <button
+           id="btnGuardarTienda"
+           class="btn-principal"
+           type="submit"
+        >
+            Crear mi tienda
+        </button>
+
+        <p id="mensajeTienda" role="status" aria-live="polite"></p>
+
+    </form>
+</div>

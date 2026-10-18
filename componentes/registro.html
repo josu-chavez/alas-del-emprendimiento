@@ -1,0 +1,48 @@
+
+<div class="modal-contenido" role="dialog"
+     aria-modal="true" aria-labelledby="tituloRegistro">
+
+    <button id="cerrarRegistro" class="modal-cerrar"
+            type="button" aria-label="Cerrar ventana">
+        ✕
+    </button>
+
+    <div class="etiqueta">🪽 ÚNETE A NUESTRA COMUNIDAD</div>
+
+    <h2 id="tituloRegistro">
+        Crea tu <span class="texto-neon">cuenta</span>
+    </h2>
+
+    <p>Descubre productos y apoya a los emprendedores.</p>
+
+    <form id="formularioRegistro">
+        <label for="nombreRegistro">Nombre completo</label>
+        <input id="nombreRegistro" name="nombre" type="text"
+               autocomplete="name" required minlength="2"
+               placeholder="Escribe tu nombre">
+
+        <label for="correoRegistro">Correo electrónico</label>
+        <input id="correoRegistro" name="correo" type="email"
+               autocomplete="email" required
+               placeholder="ejemplo@correo.com">
+
+        <label for="telefonoRegistro">Teléfono</label>
+        <input id="telefonoRegistro" name="telefono" type="tel"
+               autocomplete="tel" required
+               placeholder="Tu número de teléfono">
+
+        <label for="contrasenaRegistro">Contraseña</label>
+        <input id="contrasenaRegistro" name="contrasena"
+               type="password" autocomplete="new-password"
+               required minlength="8"
+               placeholder="Mínimo 8 caracteres">
+
+        <button id="btnRegistrar" class="btn-principal"
+                type="submit">
+            Crear mi cuenta
+        </button>
+
+        <p id="mensajeRegistro" role="status"
+           aria-live="polite"></p>
+    </form>
+</div>
